@@ -18,7 +18,7 @@
 		CA01F2A87C625D2E1D0B8F04 /* ECDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F190535F27EBFC773428 /* ECDemoViewController.m */; };
 		CA01F2CEE7096F7BBF0D358F /* MRSocialLoginProviderVK.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F8AAC744A01675ED3101 /* MRSocialLoginProviderVK.m */; };
 		CA01F304F1F3765486292AFA /* ECActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FFA1C808D558D39365F4 /* ECActivityViewController.m */; };
-		CA01F3721D90C63D9ED09547 /* ECAbstractSharingActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FA08ACFEE687544AF750 /* ECAbstractSharingActivity.m */; };
+		CA01F3721D90C63D9ED09547 /* ECActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FA08ACFEE687544AF750 /* ECActivity.m */; };
 		CA01F3A0CAC6771E6DF329AE /* MRSocialLoginProviderMailRu.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FE46A38790703CA4B79F /* MRSocialLoginProviderMailRu.m */; };
 		CA01F4CCCE86C11394A3BA81 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA01F9EAED5A7D90F63677BF /* Images.xcassets */; };
 		CA01F5FBD8F283BCA6F40BF6 /* ECFacebookSharingActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FA1C664213B0CB68FB4E /* ECFacebookSharingActivity.m */; };
@@ -127,12 +127,12 @@
 		CA01F973F7C39E746BF637AB /* ECYandexSharingActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECYandexSharingActivity.h; sourceTree = "<group>"; };
 		CA01F9DBB746F519A8A8DACA /* ECShareKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECShareKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA01F9EAED5A7D90F63677BF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CA01FA08ACFEE687544AF750 /* ECAbstractSharingActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAbstractSharingActivity.m; sourceTree = "<group>"; };
+		CA01FA08ACFEE687544AF750 /* ECActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECActivity.m; sourceTree = "<group>"; };
 		CA01FA1C664213B0CB68FB4E /* ECFacebookSharingActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECFacebookSharingActivity.m; sourceTree = "<group>"; };
 		CA01FA711EF0AAF3F642F509 /* ECActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECActivityView.m; sourceTree = "<group>"; };
 		CA01FA71BE094EA9FF6FE235 /* ECShareKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "ECShareKit-Info.plist"; sourceTree = "<group>"; };
 		CA01FA9B07E24F2AA9CD57CE /* ECActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECActivityView.h; sourceTree = "<group>"; };
-		CA01FB10C2486A0AD945AFD8 /* ECAbstractSharingActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAbstractSharingActivity.h; sourceTree = "<group>"; };
+		CA01FB10C2486A0AD945AFD8 /* ECActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECActivity.h; sourceTree = "<group>"; };
 		CA01FB4EF462CF99ACB53274 /* MRSocialLoginProviderYandex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLoginProviderYandex.h; sourceTree = "<group>"; };
 		CA01FB538E2F57E43EA5DA47 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CA01FBD2C335517253179361 /* ECShareKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECShareKitTests.m; sourceTree = "<group>"; };
@@ -397,14 +397,14 @@
 		CA01FDFDC84F7375FDAB4D87 /* Activities */ = {
 			isa = PBXGroup;
 			children = (
-				CA01FB10C2486A0AD945AFD8 /* ECAbstractSharingActivity.h */,
+				CA01FB10C2486A0AD945AFD8 /* ECActivity.h */,
 				CA01F334569B6DF38CB591C2 /* ECOdnoklassnikiSharingActivity.m */,
 				CA01F49DC588D6DC37E27D8D /* ECFacebookSharingActivity.h */,
 				CA01F827D27135A47DBC0F78 /* ECTwitterSharingActivity.m */,
 				CA01F427B7F2ED0A4984F23E /* ECMailRuSharingActivity.m */,
 				CA01FE19EF944EB039A45A7D /* ECTwitterSharingActivity.h */,
 				CA01FA1C664213B0CB68FB4E /* ECFacebookSharingActivity.m */,
-				CA01FA08ACFEE687544AF750 /* ECAbstractSharingActivity.m */,
+				CA01FA08ACFEE687544AF750 /* ECActivity.m */,
 				CA01FDF05C0E664BC1AB8FD7 /* ECVKSharingActivity.m */,
 				CA01F05B1F48904F5157B615 /* ECOdnoklassnikiSharingActivity.h */,
 				CA01F973F7C39E746BF637AB /* ECYandexSharingActivity.h */,
@@ -630,7 +630,7 @@
 				CA01F239FD588E895F3B9FFB /* ECTwitterSharingActivity.m in Sources */,
 				CA01F8601F61423396FED5C4 /* ECMailRuSharingActivity.m in Sources */,
 				CA01F5FBD8F283BCA6F40BF6 /* ECFacebookSharingActivity.m in Sources */,
-				CA01F3721D90C63D9ED09547 /* ECAbstractSharingActivity.m in Sources */,
+				CA01F3721D90C63D9ED09547 /* ECActivity.m in Sources */,
 				CA01F9B9C99E3ED0D8AF6B47 /* ECVKSharingActivity.m in Sources */,
 				CA01FC1D58C88EA8C18B5D62 /* ECYandexSharingActivity.m in Sources */,
 				CA01F304F1F3765486292AFA /* ECActivityViewController.m in Sources */,

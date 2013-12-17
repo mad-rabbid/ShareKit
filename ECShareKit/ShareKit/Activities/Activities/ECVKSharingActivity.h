@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "ECAbstractSharingActivity.h"
+#import "ECActivity.h"
 
 
-@interface ECVKSharingActivity : ECAbstractSharingActivity
+@interface ECVKSharingActivity : ECActivity
 
 @end

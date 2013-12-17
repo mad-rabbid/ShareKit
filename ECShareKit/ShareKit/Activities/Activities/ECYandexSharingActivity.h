@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "ECAbstractSharingActivity.h"
+#import "ECActivity.h"
 
 
-@interface ECYandexSharingActivity : ECAbstractSharingActivity
+@interface ECYandexSharingActivity : ECActivity
 @end
