@@ -1,9 +1,10 @@
 #import "ECActivityView.h"
 #import "ECActivityCell.h"
 
+static CGFloat kECCellDimension = 30;
 static NSString *const kECCellIdentifier = @"cellIdentifier";
 
-@interface ECActivityView () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ECActivityView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, weak) UICollectionView *collectionView;
 @end
 
@@ -53,6 +54,10 @@ static NSString *const kECCellIdentifier = @"cellIdentifier";
     ECActivityCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kECCellIdentifier forIndexPath:indexPath];
 
     return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(kECCellDimension, kECCellDimension);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
