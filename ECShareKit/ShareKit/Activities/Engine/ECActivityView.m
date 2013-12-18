@@ -1,7 +1,7 @@
 #import "ECActivityView.h"
 #import "ECActivityCell.h"
 
-static CGFloat kECCellDimension = 30;
+static CGFloat kECCellDimension = 76;
 static NSString *const kECCellIdentifier = @"cellIdentifier";
 
 @interface ECActivityView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
