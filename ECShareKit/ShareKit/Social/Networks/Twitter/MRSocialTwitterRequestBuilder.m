@@ -43,7 +43,9 @@ static NSInteger const kTwitterNonceLength = 32;
 }
 
 - (NSMutableURLRequest *)buildRequestWithHttpClient:(AFHTTPRequestOperationManager *)client {
-    NSMutableURLRequest *request = [client.requestSerializer requestWithMethod:self.method URLString:self.apiPath parameters:self.parameters];
+    NSMutableURLRequest *request = [client.requestSerializer requestWithMethod:self.method
+                                                                     URLString:[client.baseURL.absoluteString stringByAppendingFormat:@"/%@", self.apiPath]
+                                                                    parameters:self.parameters];
 
     NSString *urlString = request.URL.absoluteString;
     NSRange range = [urlString rangeOfString:@"?"];

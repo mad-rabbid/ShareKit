@@ -6,6 +6,7 @@
 #import "ECOdnoklassnikiSharingActivity.h"
 #import "ECMailRuSharingActivity.h"
 #import "ECYandexSharingActivity.h"
+#import "ECActivityViewController.h"
 
 #define kECButtonWidth 150
 #define kECButtonHeight 50
@@ -52,10 +53,7 @@
     NSString *textItem = @"Товарное предложение";
     UIImage *imageToShare = [UIImage imageNamed:@"ECDemo.bundle/image.jpg"];
 
-    NSArray *items = [NSArray arrayWithObjects:textItem, imageToShare, nil];
-
-    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:items
-                                                                             applicationActivities:@[
+    ECActivityViewController *controller = [[ECActivityViewController alloc] initWithActivities:@[
                                                                                      [ECFacebookSharingActivity new],
                                                                                      [ECTwitterSharingActivity new],
                                                                                      [ECVKSharingActivity new],
@@ -64,27 +62,7 @@
                                                                                      [ECYandexSharingActivity new]
                                                                              ]];
 
-    controller.excludedActivityTypes = @[UIActivityTypePostToFacebook,
-            UIActivityTypePostToTwitter,
-            UIActivityTypePostToWeibo,
-            UIActivityTypeMessage,
-            UIActivityTypeMail,
-            UIActivityTypePrint,
-            UIActivityTypeCopyToPasteboard,
-            UIActivityTypeAssignToContact,
-            UIActivityTypeSaveToCameraRoll,
-            UIActivityTypeAddToReadingList,
-            UIActivityTypePostToFlickr,
-            UIActivityTypePostToVimeo,
-            UIActivityTypePostToTencentWeibo,
-            UIActivityTypeAirDrop
-    ];
-    controller.navigationController.toolbar.barTintColor = [UIColor orangeColor];
-    controller.completionHandler = ^(NSString *activityType, BOOL completed) {
-        NSLog(@" activityType: %@", activityType);
-        NSLog(@" completed: %i", completed);
-    };
-
-    [self presentViewController:controller animated:YES completion:nil];
+    controller.title = NSLocalizedString(@"Поделиться товарным предложением", nil);
+    [controller presentFromRootViewController];
 }
 @end

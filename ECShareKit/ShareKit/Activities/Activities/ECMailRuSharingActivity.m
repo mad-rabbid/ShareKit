@@ -11,7 +11,7 @@
 }
 
 - (UIImage *)activityImage {
-    return [UIImage imageNamed:@"ECShareKit.bundle/icons/facebook.png"];
+    return [UIImage imageNamed:@"ECShareKit.bundle/icons/mail.png"];
 }
 
 - (NSString *)activityType {

@@ -89,7 +89,7 @@ static NSString *const kMRSexWoman = @"woman";
     }
 }
 
-- (NSString *)sexString{
+- (NSString *)sexString {
     switch (self.sex) {
         case MRAccountSexUndefined:
             return kMRSexUndefined;

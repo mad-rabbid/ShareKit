@@ -10,6 +10,7 @@
 		4F5F6AE4C76243B998D6C98B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C587E0EDB74C482B82A81090 /* libPods.a */; };
 		CA01F0387F736091B44A5DF2 /* ECComposeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F8A671032B5A15B6265B /* ECComposeTextView.m */; };
 		CA01F044DB707294359A72C9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01FB538E2F57E43EA5DA47 /* XCTest.framework */; };
+		CA01F0579158F89B98C70E8F /* ECActivityLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F50C10366025E8D97C74 /* ECActivityLoginViewController.m */; };
 		CA01F098495C3FA94BD92C5D /* MRSocialLoginProviderYandex.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FBFABA0FD92B0D8B044E /* MRSocialLoginProviderYandex.m */; };
 		CA01F0F7EC08442617FD2CED /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01F22182927982C7908227 /* CoreGraphics.framework */; };
 		CA01F1C3A5F7EA4748F0C122 /* ECActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F3E8191452AB041F1BFA /* ECActivityCell.m */; };
@@ -85,6 +86,7 @@
 		CA01F0D39DDCD48B4C6DCE41 /* MRSocialLoginProviderFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialLoginProviderFactory.m; sourceTree = "<group>"; };
 		CA01F12011B96C4947857A78 /* ECAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECAppDelegate.m; sourceTree = "<group>"; };
 		CA01F1457E2DAD0071D64BEF /* ECActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECActivityViewController.h; sourceTree = "<group>"; };
+		CA01F14BF45F707EFBD179D2 /* ECActivityLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECActivityLoginViewController.h; sourceTree = "<group>"; };
 		CA01F15AC560CCB73DB2F4D4 /* MRSocialAccountInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialAccountInfo.h; sourceTree = "<group>"; };
 		CA01F190535F27EBFC773428 /* ECDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDemoViewController.m; sourceTree = "<group>"; };
 		CA01F1FBF7C1137924BC4256 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -106,6 +108,7 @@
 		CA01F4C4E0D5569654135FD2 /* ECDemo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ECDemo.bundle; sourceTree = "<group>"; };
 		CA01F5044B7CED7D8904B1A5 /* ECDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDemoViewController.h; sourceTree = "<group>"; };
 		CA01F507762898C2A5079177 /* MRSocialLoginProviderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLoginProviderManager.h; sourceTree = "<group>"; };
+		CA01F50C10366025E8D97C74 /* ECActivityLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECActivityLoginViewController.m; sourceTree = "<group>"; };
 		CA01F53426A9C9B7819CECCF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CA01F542962A14B7C1EC20E3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		CA01F5A975B9A48ABEEE1DE7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -321,6 +324,8 @@
 				CA01FA9B07E24F2AA9CD57CE /* ECActivityView.h */,
 				CA01F3E8191452AB041F1BFA /* ECActivityCell.m */,
 				CA01FD966052BE857CF79815 /* ECActivityCell.h */,
+				CA01F50C10366025E8D97C74 /* ECActivityLoginViewController.m */,
+				CA01F14BF45F707EFBD179D2 /* ECActivityLoginViewController.h */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -636,6 +641,7 @@
 				CA01F304F1F3765486292AFA /* ECActivityViewController.m in Sources */,
 				CA01FCC7213B9C6188168DD6 /* ECActivityView.m in Sources */,
 				CA01F1C3A5F7EA4748F0C122 /* ECActivityCell.m in Sources */,
+				CA01F0579158F89B98C70E8F /* ECActivityLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

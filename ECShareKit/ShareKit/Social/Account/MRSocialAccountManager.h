@@ -5,11 +5,11 @@
 
 @interface MRSocialAccountManager : NSObject
 
-
 + (instancetype)sharedInstance;
 
-- (void)reloadAccount;
-- (MRSocialAccountInfo *)account;
-- (void)setAccount:(MRSocialAccountInfo *)account;
+- (BOOL)isLoggedInWithType:(NSString *)type;
+- (MRSocialAccountInfo *)accountWithType:(NSString *)type;
+- (void)setAccount:(MRSocialAccountInfo *)account withType:(NSString *)type;
+- (void)removeAccountWithType:(NSString *)type;
 
 @end

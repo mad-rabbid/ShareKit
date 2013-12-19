@@ -3,15 +3,14 @@
 #import "MRSocialAccountInfo.h"
 
 static NSString *const kMRKeychainService = @"mad.rabbid.social.login";
-static NSString *const kMRKeychainAccessGroup = @"mad.rabbid.access.group.general";
 static NSString *const kMRKeychainKeySocialAccount = @"mad.rabbid.general.social.account";
 
 @interface MRSocialAccountManager ()
 @property (nonatomic, strong) FXKeychain *keychain;
+@property (nonatomic, strong) NSMutableDictionary *accountsCache;
 @end
 
 @implementation MRSocialAccountManager {
-    __strong MRSocialAccountInfo *_account;
 }
 
 + (instancetype)sharedInstance {
@@ -26,27 +25,39 @@ static NSString *const kMRKeychainKeySocialAccount = @"mad.rabbid.general.social
 - (id)init {
     self = [super init];
     if (self) {
-        self.keychain = [[FXKeychain alloc] initWithService:kMRKeychainService accessGroup:kMRKeychainAccessGroup];
+        self.keychain = [[FXKeychain alloc] initWithService:kMRKeychainService accessGroup:nil];
+        self.accountsCache = [NSMutableDictionary new];
     }
 
     return self;
 }
 
-- (void)checkLogin {
-
+- (BOOL)isLoggedInWithType:(NSString *)type {
+    return [self accountWithType:type] != nil;
 }
 
-- (void)reloadAccount {
-    _account = [MRSocialAccountInfo unmarshal:self.keychain[kMRKeychainKeySocialAccount]];
+- (MRSocialAccountInfo *)accountWithType:(NSString *)type {
+    MRSocialAccountInfo *info = self.accountsCache[type];
+    if (!info) {
+        info = self.keychain[type];
+        if (info) {
+            self.accountsCache[type] = info;
+        }
+    }
+    return info;
 }
 
-- (MRSocialAccountInfo *)account {
-    return _account;
+- (void)setAccount:(MRSocialAccountInfo *)account withType:(NSString *)type {
+    if (account) {
+        self.keychain[type] = [account marshal];
+        self.accountsCache[type] = account;
+    } else {
+        [self removeAccountWithType:type];
+    }
 }
 
-- (void)setAccount:(MRSocialAccountInfo *)account {
-    _account = account;
-    self.keychain[kMRKeychainKeySocialAccount] = [account marshal];
+- (void)removeAccountWithType:(NSString *)type {
+    [self.keychain removeObjectForKey:type];
+    [self.accountsCache removeObjectForKey:type];
 }
-
 @end

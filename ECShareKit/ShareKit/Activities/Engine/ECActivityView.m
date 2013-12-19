@@ -1,15 +1,28 @@
 #import "ECActivityView.h"
 #import "ECActivityCell.h"
+#import "MRSocialAccountManager.h"
+#import "ECActivity.h"
+#import "ECComposeViewController.h"
+#import "MRSocialLoginProviderFactory.h"
 
 static CGFloat kECCellDimension = 76;
+static CGFloat kECTitleHeight = 40;
+static CGFloat kECSpacing = 10;
+static CGFloat kECStrokeLineHeight = 1.0;
+
 static NSString *const kECCellIdentifier = @"cellIdentifier";
 
 @interface ECActivityView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, weak) UICollectionView *collectionView;
+@property (nonatomic, weak) UILabel *labelTitle;
 @end
 
 @implementation ECActivityView {
 
+}
+
++ (CGFloat)activityViewHeight {
+    return kECCellDimension + kECTitleHeight + kECStrokeLineHeight + 2 * kECSpacing;
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -22,23 +35,48 @@ static NSString *const kECCellIdentifier = @"cellIdentifier";
 }
 
 - (void)setupControl {
+    self.backgroundColor = [UIColor whiteColor];
+
+    [self createTitleView];
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    [flowLayout setMinimumInteritemSpacing:0.0f];
-    [flowLayout setMinimumLineSpacing:0.0f];
+    [flowLayout setMinimumInteritemSpacing:kECSpacing];
+    [flowLayout setMinimumLineSpacing:kECSpacing];
+    [flowLayout setSectionInset:UIEdgeInsetsMake(kECSpacing, kECSpacing, kECSpacing, kECSpacing)];
 
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
+    CGRect frame = (CGRect) {
+        .origin.y = CGRectGetMaxY(self.labelTitle.frame),
+        .size.width = self.bounds.size.width,
+        .size.height = self.bounds.size.height - CGRectGetMaxY(self.labelTitle.frame),
+    };
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:flowLayout];
     _collectionView = collectionView;
 
+    collectionView.backgroundColor = [UIColor clearColor];
+    collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     collectionView.delegate = self;
     collectionView.dataSource = self;
     [collectionView registerClass:[ECActivityCell class] forCellWithReuseIdentifier:kECCellIdentifier];
     [self addSubview:collectionView];
 }
 
+- (void)createTitleView {
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, kECStrokeLineHeight, self.bounds.size.width, kECTitleHeight)];
+    label.backgroundColor = [UIColor colorWithWhite:239.0 / 255.0 alpha:1.0];
+    label.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
+    label.textColor = [UIColor darkGrayColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:label];
+    _labelTitle = label;
+}
+
 - (void)setupMenu {
     UIMenuItem *menuItem = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Выйти", nil) action:@selector(customAction:)];
     [UIMenuController sharedMenuController].menuItems = @[menuItem];
+}
+
+- (void)setTitle:(NSString *)title {
+    self.labelTitle.text = title;
 }
 
 - (void)setActivities:(NSArray *)activities {
@@ -53,6 +91,13 @@ static NSString *const kECCellIdentifier = @"cellIdentifier";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ECActivityCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kECCellIdentifier forIndexPath:indexPath];
 
+    ECActivity *activity = self.activities[indexPath.row];
+    cell.activity = activity;
+    cell.loggedIn = [[MRSocialAccountManager sharedInstance] isLoggedInWithType:activity.activityType];
+
+    __weak typeof(self) myself = self;
+    cell.actionBlock = ^(ECActivity *current) {
+    };
     return cell;
 }
 
@@ -60,25 +105,41 @@ static NSString *const kECCellIdentifier = @"cellIdentifier";
     return CGSizeMake(kECCellDimension, kECCellDimension);
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-
-}
-
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-    // TODO: Check if a user is logged in into an account at indexPath and then return YES;
-    return NO;
+    ECActivity *activity = self.activities[indexPath.row];
+    return [[MRSocialAccountManager sharedInstance] isLoggedInWithType:activity.activityType];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
     return action == @selector(customAction:);
 }
 
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ECActivity *activity = self.activities[indexPath.row];
+    [self performActivity:activity];
+}
 
+- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    NSLog(@"!!!!");
+}
+
+- (void)performActivity:(ECActivity *)activity {
+    if (self.performActivityBlock) {
+        self.performActivityBlock(activity);
+    }
+}
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(context);
+    CGContextSetStrokeColorWithColor(context, [UIColor darkGrayColor].CGColor);
+    CGContextSetLineWidth(context, kECStrokeLineHeight);
+    CGContextMoveToPoint(context, 0, 0);
+    CGContextAddLineToPoint(context, self.bounds.size.width, 0);
+    CGContextDrawPath(context, kCGPathStroke);
+    CGContextRestoreGState(context);
 }
 
 @end

@@ -24,6 +24,16 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
 @implementation MRSocialLoginProviderTwitter {
 }
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.httpClient.responseSerializer = [AFHTTPResponseSerializer new];
+        self.httpClient.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    }
+
+    return self;
+}
+
 - (NSString *)name {
     return NSLocalizedString(@"Twitter", nil);
 }
@@ -41,6 +51,8 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
             if (arrayOfAccounts.count) {
                 myself.twitterAccount = [arrayOfAccounts lastObject];
                 [myself reverseAuth];
+            } else {
+                [myself fallbackLogin];
             }
         } else {
             [myself fallbackLogin];
@@ -76,7 +88,9 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
     if ([parameters[@"oauth_token"] length] &&
             [parameters[@"oauth_token_secret"] length] &&
             [[parameters[@"oauth_callback_confirmed"] lowercaseString] isEqualToString:@"true"]) {
-        NSURLRequest *request = [self.httpClient.requestSerializer requestWithMethod:kMRSocialHTTPMethodGET URLString:@"oauth/authenticate" parameters:@{@"oauth_token" : parameters[@"oauth_token"]}];
+        NSURLRequest *request = [self.httpClient.requestSerializer requestWithMethod:kMRSocialHTTPMethodGET
+                                                                           URLString:[self.httpClient.baseURL.absoluteString stringByAppendingFormat:@"/%@", @"oauth/authenticate"]
+                                                                          parameters:@{@"oauth_token" : parameters[@"oauth_token"]}];
         [self.webView loadRequest:request];
     } else {
         [self fail];
