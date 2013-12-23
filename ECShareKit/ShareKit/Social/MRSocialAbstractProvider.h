@@ -7,8 +7,6 @@
 
 @interface MRSocialAbstractProvider : MRSocialProviderBase<MRSocialProvider>
 
-@property (nonatomic, strong, readonly) NSDictionary *settings;
-
 - (void)loginWithSuccessBlock:(void (^)(MRSocialAccountInfo *accountInfo))successBlock failBlock:(void (^)())failBlock;
 
 - (NSURLRequest *)loginRequest;

@@ -11,7 +11,7 @@
 
 - (NSString *)text;
 - (NSString *)imageUrl;
-
+- (UIImage *)image;
 @end
 
 @protocol ECComposeViewDelegate <NSObject>

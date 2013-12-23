@@ -12,7 +12,9 @@
 
 - (void)addHeader:(NSString *)headerName value:(NSString *)value;
 
-- (void)addParameter:(NSString *)parameterName value:(NSString *)value;
+- (void)addParameter:(NSString *)parameterName value:(id)value;
 
 - (NSMutableURLRequest *)buildRequestWithHttpClient:(AFHTTPRequestOperationManager *)client;
+
+- (NSMutableURLRequest *)buildMultipartRequestWithHttpClient:(AFHTTPRequestOperationManager *)client;
 @end

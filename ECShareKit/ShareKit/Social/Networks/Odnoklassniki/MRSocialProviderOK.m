@@ -1,22 +1,27 @@
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import <JSONKit/JSONKit.h>
 #import "MRSocialProviderOK.h"
 #import "MRSocialHelper.h"
 #import "MRSocialAccountInfo.h"
 #import "MRSocialLogging.h"
 #import "MRSocialProvidersFactory.h"
+#import "MRPostInfo.h"
 
-static NSString *const kOKAppId = @"189607424";
+static NSString *const kOKAppIdKey = @"appId";
 
-static NSString *const kOKPrivateKey = @"8ACE7AB4B80A7336C67CB973";
-static NSString *const kOKPublicKey = @"CBAPCOEMABABABABA";
+static NSString *const kOKPrivateKey = @"appSecret";
+static NSString *const kOKPublicKey = @"appPublic";
 
-static NSString *const kOKScope = @"";
-static NSString *const kOKRedirectURI = @"https://fishbyte.ru/blank.html";
+static NSString *const kOKRedirectURIKey = @"redirectUrl";
+
+static NSString *const kOKScope = @"VALUABLE_ACCESS";
+
 static NSString *const kOKAuthorizationURL = @"http://www.odnoklassniki.ru/oauth/authorize";
 static NSString *const kOKBaseApiURL = @"http://api.odnoklassniki.ru";
 
 static NSString *const kOKApiPathToken = @"oauth/token.do";
 static NSString *const kOKApiGetCurrentUser = @"api/users/getCurrentUser";
+static NSString *const kOKApiGetStreamPublish = @"api/stream/publish";
 @implementation MRSocialProviderOK {
 
 }
@@ -27,7 +32,7 @@ static NSString *const kOKApiGetCurrentUser = @"api/users/getCurrentUser";
 
 - (NSURLRequest *)loginRequest {
     NSString *stringUrl = [NSString stringWithFormat:@"%@?%@", kOKAuthorizationURL, [MRSocialHelper parametersStringWithDictionary:@{
-            @"client_id" : kOKAppId,
+            @"client_id" : self.settings[kOKAppIdKey],
             @"scope" : kOKScope,
             @"response_type" : @"code",
             @"redirect_uri" : self.redirectURI,
@@ -47,7 +52,7 @@ static NSString *const kOKApiGetCurrentUser = @"api/users/getCurrentUser";
 }
 
 - (NSString *)redirectURI {
-    return kOKRedirectURI;
+    return self.settings[kOKRedirectURIKey];
 }
 
 - (BOOL)parametersContainSuccessCriteria:(NSDictionary *)parameters {
@@ -60,8 +65,8 @@ static NSString *const kOKApiGetCurrentUser = @"api/users/getCurrentUser";
             @"code" : parameters[@"code"],
             @"redirect_uri" : self.redirectURI,
             @"grant_type" : @"authorization_code",
-            @"client_id" : kOKAppId,
-            @"client_secret" : kOKPrivateKey
+            @"client_id" : self.settings[kOKAppIdKey],
+            @"client_secret" : self.settings[kOKPrivateKey]
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [myself resetNetworkOperation];
         [myself handleApiTokenResult:responseObject];
@@ -83,7 +88,7 @@ static NSString *const kOKApiGetCurrentUser = @"api/users/getCurrentUser";
 - (void)signRequest:(NSMutableDictionary *)dictionary account:(MRSocialAccountInfo *)account {
     NSMutableString *builder = [[MRSocialHelper sortedParameters:dictionary excludes:@[@"access_token"]] mutableCopy];
 
-    NSString *secretSource = [account.accessToken stringByAppendingString:kOKPrivateKey];
+    NSString *secretSource = [account.accessToken stringByAppendingString:self.settings[kOKPrivateKey]];
     NSString *secret = [MRSocialHelper md5:secretSource];
     [builder appendString:secret];
 
@@ -93,7 +98,7 @@ static NSString *const kOKApiGetCurrentUser = @"api/users/getCurrentUser";
 
 - (void)loadUserInfo:(MRSocialAccountInfo *)account {
     NSMutableDictionary *parameters = [@{
-        @"application_key" : kOKPublicKey,
+        @"application_key" : self.settings[kOKPublicKey],
         @"access_token" : account.accessToken,
         @"format" : @"JSON"
     } mutableCopy];
@@ -134,4 +139,51 @@ static NSString *const kOKApiGetCurrentUser = @"api/users/getCurrentUser";
     account.identifier = userInfo[@"uid"];
     MRLog(@"Account is: %@", account);
 }
+
+- (void)publish:(MRPostInfo *)postInfo account:(MRSocialAccountInfo *)accountInfo completionBlock:(void (^)(BOOL isSuccess))completionBlock {
+    NSRange range = [postInfo.pictureUrl rangeOfString:self.settings[kOKRedirectURIKey]];
+    NSString *path = !range.location ? [postInfo.pictureUrl substringFromIndex:NSMaxRange(range) + 1] : postInfo.pictureUrl;
+    NSDictionary *attachment = @{
+        @"caption" : postInfo.message,
+        @"media" : @[
+            @{
+                @"src" : path,
+                @"type" : @"image"
+            }
+        ]
+    };
+
+    NSMutableDictionary *parameters = [@{
+            @"application_key" : self.settings[kOKPublicKey],
+            @"access_token" : accountInfo.accessToken,
+            @"format" : @"JSON",
+            @"message" : postInfo.message,
+            @"attachment" : [attachment JSONString]
+    } mutableCopy];
+
+//    NSMutableDictionary *parameters = [@{
+//            @"application_key" : self.settings[kOKPublicKey],
+//            @"access_token" : accountInfo.accessToken,
+//            @"format" : @"JSON",
+//            @"status" : @"API Одноклассников - унылое говно"
+//    } mutableCopy];
+
+    [self signRequest:parameters account:accountInfo];
+
+    __weak typeof(self) myself = self;
+    self.operation = [self.httpClient POST: kOKApiGetStreamPublish /*@"api/users/setStatus"*/ parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [myself resetNetworkOperation];
+        NSLog(@"Response: %@, %@", operation.response, responseObject);
+        if (completionBlock) {
+            completionBlock(operation.response.statusCode == 200 && [responseObject isKindOfClass:NSDictionary.class] && !responseObject[@"error_code"]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [myself resetNetworkOperation];
+        NSLog(@"Response: %@", operation.response);
+        if (completionBlock) {
+            completionBlock(operation.response.statusCode == 200 && [[operation.responseString lowercaseString] isEqualToString:@"true"]);
+        }
+    }];
+}
+
 @end

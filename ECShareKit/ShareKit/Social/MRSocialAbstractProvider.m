@@ -17,10 +17,6 @@ NSString *const kMRSocialHTTPMethodPOST = @"POST";
 
 }
 
-- (void)setSettings:(NSDictionary *)settings {
-    _settings = settings;
-}
-
 - (void)loginWithSuccessBlock:(void (^)(MRSocialAccountInfo *accountInfo))successBlock failBlock:(void (^)())failBlock {
     [self setSuccessBlock:successBlock failBlock:failBlock];
 
@@ -67,6 +63,14 @@ NSString *const kMRSocialHTTPMethodPOST = @"POST";
     }
 
     return [self isAllowedToProcessUrlString:urlString];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    NSLog(@"Loaded");
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    NSLog(@"Error: %@", error.description);
 }
 
 - (BOOL)parametersContainSuccessCriteria:(NSDictionary *)parameters {

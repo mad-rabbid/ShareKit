@@ -287,7 +287,7 @@ static NSInteger const kECActivityIndicatorViewTag = 10000;
     }
 
     MRSocialAccountInfo *account = [[MRSocialAccountManager sharedInstance] accountWithType:self.activity.activityType];
-    MRPostInfo *post = [[MRPostInfo alloc] initWithMessage:self.composeView.text pictureUrl:self.composeView.imageUrl];
+    MRPostInfo *post = [[MRPostInfo alloc] initWithMessage:self.composeView.text pictureUrl:self.composeView.imageUrl image:self.composeView.image];
 
     [self showSpinner];
     [self.composeView resignFirstResponder];

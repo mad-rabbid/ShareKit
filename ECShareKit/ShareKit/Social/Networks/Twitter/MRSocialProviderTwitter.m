@@ -8,11 +8,12 @@
 #import "MRSocialHelper.h"
 #import "MRSocialTwitterRequestBuilder.h"
 #import "MRSocialAccountInfo.h"
+#import "MRPostInfo.h"
 
-static NSString *const kTwitterConsumerKey = @"5Yr7dxxGn5tCyHA11g";
-static NSString *const kTwitterConsumerSecret = @"oMMobURWRD9dSWooOg1hh02PaadH75Qi0NEdHHZKHqA";
+static NSString *const kTwitterConsumerIdKey = @"appId";
+static NSString *const kTwitterConsumerSecretKey = @"appSecret";
 
-static NSString *const kTwitterCallbackUrl = @"https://fishbite.com/blank.html";
+static NSString *const kTwitterCallbackUrlKey = @"redirectUrl";
 static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
 
 @interface MRSocialProviderTwitter ()
@@ -28,7 +29,7 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
     self = [super init];
     if (self) {
         self.httpClient.responseSerializer = [AFHTTPResponseSerializer new];
-        self.httpClient.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+        self.httpClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", @"application/json", nil];
     }
 
     return self;
@@ -72,9 +73,10 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
 
     [builder setMethod:kMRSocialHTTPMethodPOST];
     [builder setApiPath:@"oauth/request_token"];
-    [builder addHeader:@"oauth_callback" value:kTwitterCallbackUrl];
+    [builder addHeader:@"oauth_callback" value:self.settings[kTwitterCallbackUrlKey]];
 
     NSURLRequest *request = [builder buildRequestWithHttpClient:self.httpClient];
+    [self clearCookiesForRequest:request];
     MRLog(@"Request: %@", [request description]);
 
     __weak MRSocialProviderTwitter *myself = self;
@@ -89,8 +91,9 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
             [parameters[@"oauth_token_secret"] length] &&
             [[parameters[@"oauth_callback_confirmed"] lowercaseString] isEqualToString:@"true"]) {
         NSURLRequest *request = [self.httpClient.requestSerializer requestWithMethod:kMRSocialHTTPMethodGET
-                                                                           URLString:[self.httpClient.baseURL.absoluteString stringByAppendingFormat:@"/%@", @"oauth/authenticate"]
+                                                                           URLString:[self.httpClient.baseURL.absoluteString stringByAppendingFormat:@"/%@", @"oauth/authorize"]
                                                                           parameters:@{@"oauth_token" : parameters[@"oauth_token"]}];
+        [self clearCookiesForRequest:request];
         [self.webView loadRequest:request];
     } else {
         [self fail];
@@ -99,7 +102,7 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *urlString = request.URL.absoluteString;
-    if ([urlString hasPrefix:kTwitterCallbackUrl]) {
+    if ([urlString hasPrefix:self.settings[kTwitterCallbackUrlKey]]) {
         NSString *parameterString = request.URL.query;
         if (!parameterString.length) {
             parameterString = request.URL.fragment;
@@ -119,8 +122,8 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
 }
 
 - (MRSocialTwitterRequestBuilder *)createRequestBuilder {
-    return  [[MRSocialTwitterRequestBuilder alloc] initWithConsumerKey:kTwitterConsumerKey
-                                                        consumerSecret:kTwitterConsumerSecret];
+    return  [[MRSocialTwitterRequestBuilder alloc] initWithConsumerKey:self.settings[kTwitterConsumerIdKey]
+                                                        consumerSecret:self.settings[kTwitterConsumerSecretKey]];
 }
 
 - (void)obtainToken:(NSDictionary *)parameters {
@@ -168,15 +171,15 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
 
     __weak MRSocialProviderTwitter *myself = self;
     [self executeRequest:request completion:^(NSString *responseString) {
-        [myself handleGetUserInfoResponse:responseString];
+        [myself handleGetUserInfoResponse:responseString accountInfo:info];
     }];
 }
 
-- (void)handleGetUserInfoResponse:(NSString *)response {
+- (void)handleGetUserInfoResponse:(NSString *)response accountInfo:(MRSocialAccountInfo *)info {
     NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *userInfo = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     MRLog(@"UserInfo: %@", userInfo);
-    [self success:nil];
+    [self success:info];
 }
 
 - (void)reverseAuth {
@@ -200,7 +203,7 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
     NSURL *url = [[NSURL alloc] initWithString:urlString];
 
     NSDictionary *dictionary = @{
-        @"x_reverse_auth_target" : kTwitterConsumerKey,
+        @"x_reverse_auth_target" : self.settings[kTwitterConsumerIdKey],
         @"x_reverse_auth_parameters" : response
     };
     MRLog(@"Dictionary: %@", dictionary);
@@ -268,4 +271,70 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
     self.twitterAccount = nil;
     self.accountStore = nil;
 }
+
+- (void)publish:(MRPostInfo *)postInfo account:(MRSocialAccountInfo *)accountInfo completionBlock:(void (^)(BOOL isSuccess))completionBlock {
+
+//    MRSocialTwitterRequestBuilder *builder = [self createRequestBuilder];
+//
+//    [builder setMethod:kMRSocialHTTPMethodGET];
+//    [builder setApiPath:@"1.1/account/verify_credentials.json"];
+//    [builder setSecret:accountInfo.refreshToken];
+//    [builder addHeader:@"oauth_token" value:accountInfo.accessToken];
+//
+//    NSURLRequest *request = [builder buildRequestWithHttpClient:self.httpClient];
+//    MRLog(@"Request: %@", [request description]);
+//
+//    __weak typeof(self) myself = self;
+//    self.operation = [self.httpClient HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        [myself resetNetworkOperation];
+//        MRLog(@"Response: %@", [operation responseString]);
+//        if (completionBlock) {
+//            completionBlock(operation.response.statusCode == 200);
+//        }
+//
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        MRLog(@"Error: %@\n%@", [error localizedDescription], operation.responseString);
+//        [myself resetNetworkOperation];
+//        if (completionBlock) {
+//            completionBlock(NO);
+//        };
+//    }];
+//    [self.httpClient.operationQueue addOperation:self.operation];
+
+
+    MRSocialTwitterRequestBuilder *builder = [self createRequestBuilder];
+
+    [builder setMethod:kMRSocialHTTPMethodPOST];
+    [builder setApiPath:@"/1.1/statuses/update_with_media.json"];
+    [builder setSecret:accountInfo.refreshToken];
+    [builder addHeader:@"oauth_token" value:accountInfo.accessToken];
+
+    [builder addParameter:@"status" value:postInfo.message];
+    [builder addParameter:@"media[]" value:@{
+        @"image" : UIImageJPEGRepresentation(postInfo.image, 0.9f) ?: [NSNull null],
+        @"mime-type" : @"image/jpeg",
+        @"name" : @"image.jpg"
+    }];
+
+    NSURLRequest *request = [builder buildMultipartRequestWithHttpClient:self.httpClient];
+    MRLog(@"Request: %@", [request description]);
+
+    __weak typeof(self) myself = self;
+    self.operation = [self.httpClient HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [myself resetNetworkOperation];
+        MRLog(@"Response: %@", [operation responseString]);
+        if (completionBlock) {
+            completionBlock(operation.response.statusCode == 200);
+        }
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        MRLog(@"Error: %@\n%@", [error localizedDescription], operation.responseString);
+        [myself resetNetworkOperation];
+        if (completionBlock) {
+            completionBlock(NO);
+        };
+    }];
+    [self.httpClient.operationQueue addOperation:self.operation];
+}
+
 @end

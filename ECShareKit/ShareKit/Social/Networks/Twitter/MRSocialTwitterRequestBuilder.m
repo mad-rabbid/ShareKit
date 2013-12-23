@@ -8,15 +8,14 @@
 static NSInteger const kTwitterNonceLength = 32;
 
 @interface MRSocialTwitterRequestBuilder ()
-@property (nonatomic, strong) NSString *consumerKey;
-@property (nonatomic, strong) NSString *consumerSecret;
+@property(nonatomic, strong) NSString *consumerKey;
+@property(nonatomic, strong) NSString *consumerSecret;
 
-@property (nonatomic, strong) NSString *method;
-@property (nonatomic, strong) NSString *apiPath;
-@property (nonatomic, strong) NSString *secret;
+@property(nonatomic, strong) NSString *method;
+@property(nonatomic, strong) NSString *apiPath;
+@property(nonatomic, strong) NSString *secret;
 
-
-@property (nonatomic, strong) NSMutableDictionary *parameters;
+@property(nonatomic, strong) NSMutableDictionary *parameters;
 @end
 
 @implementation MRSocialTwitterRequestBuilder {
@@ -38,7 +37,7 @@ static NSInteger const kTwitterNonceLength = 32;
     self.headers[headerName] = value;
 }
 
-- (void)addParameter:(NSString *)parameterName value:(NSString *)value {
+- (void)addParameter:(NSString *)parameterName value:(id)value {
     self.parameters[parameterName] = value;
 }
 
@@ -47,18 +46,52 @@ static NSInteger const kTwitterNonceLength = 32;
                                                                      URLString:[client.baseURL.absoluteString stringByAppendingFormat:@"/%@", self.apiPath]
                                                                     parameters:self.parameters];
 
+    [self signRequest:request skipParameters:NO];
+    return request;
+}
+
+- (NSMutableURLRequest *)buildMultipartRequestWithHttpClient:(AFHTTPRequestOperationManager *)client {
+    NSMutableURLRequest *request = [client.requestSerializer multipartFormRequestWithMethod:self.method
+                                                                                  URLString:[client.baseURL.absoluteString stringByAppendingFormat:@"/%@", self.apiPath]
+                                                                                 parameters:nil
+                                                                  constructingBodyWithBlock:^(id <AFMultipartFormData> formData) {
+                                                                      [self.parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+                                                                            if ([obj isKindOfClass:NSString.class]) {
+
+                                                                            } else if ([obj isKindOfClass:NSDictionary.class]) {
+                                                                                NSString *name = obj[@"name"];
+                                                                                NSData *image = obj[@"image"];
+
+                                                                                [formData appendPartWithFileData:image name:key fileName:name mimeType:obj[@"mime-type"] ?: @"application/octet-stream"];
+                                                                            }
+                                                                      }];
+                                                                  }];
+
+    [self signRequest:request skipParameters:YES];
+    return request;
+}
+
+- (void)signRequest:(NSMutableURLRequest *)request skipParameters:(BOOL)skipParameters {
     NSString *urlString = request.URL.absoluteString;
     NSRange range = [urlString rangeOfString:@"?"];
     if (range.location != NSNotFound) {
         urlString = [urlString substringToIndex:range.location];
     }
-    [request addValue:[self signWithUrlString:urlString] forHTTPHeaderField:@"Authorization"];
-    return request;
+    [request addValue:[self signWithUrlString:urlString skipParameters:skipParameters] forHTTPHeaderField:@"Authorization"];
 }
 
-- (NSString *)signWithUrlString:(NSString *)urlString {
+- (NSString *)signWithUrlString:(NSString *)urlString skipParameters:(BOOL)skipParameters {
     NSMutableDictionary *source = [NSMutableDictionary dictionaryWithDictionary:self.headers];
-    [source addEntriesFromDictionary:self.parameters];
+    if (!skipParameters) {
+        [source addEntriesFromDictionary:self.parameters];
+    }
+//    } else {
+//        [self.parameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+//            if ([obj isKindOfClass:NSString.class]) {
+//                source[key] = obj;
+//            }
+//        }];
+//    }
 
     NSString *parameterString = [MRSocialHelper sortedParameters:source excludes:nil encode:YES ampersand:YES];
     MRLog(@"Parameter string is: %@", parameterString);
@@ -98,11 +131,11 @@ static NSInteger const kTwitterNonceLength = 32;
 
 - (NSMutableDictionary *)createHeaders {
     NSMutableDictionary *result = [@{
-        @"oauth_signature_method" : @"HMAC-SHA1",
-        @"oauth_timestamp" : [NSString stringWithFormat:@"%.0f", [[NSDate new] timeIntervalSince1970]],
-        @"oauth_version": @"1.0",
-        @"oauth_consumer_key" : self.consumerKey,
-        @"oauth_nonce" : [self createNonce]
+            @"oauth_signature_method" : @"HMAC-SHA1",
+            @"oauth_timestamp" : [NSString stringWithFormat:@"%.0f", [[NSDate new] timeIntervalSince1970]],
+            @"oauth_version" : @"1.0",
+            @"oauth_consumer_key" : self.consumerKey,
+            @"oauth_nonce" : [self createNonce]
     } mutableCopy];
     MRLog(@"Headers are: %@", result);
     return result;
@@ -112,7 +145,7 @@ static NSInteger const kTwitterNonceLength = 32;
     NSMutableData *result = [NSMutableData dataWithCapacity:kTwitterNonceLength];
     for (NSUInteger i = 0; i < kTwitterNonceLength / 4; i++) {
         u_int32_t randomBits = arc4random();
-        [result appendBytes:(void*)&randomBits length:4];
+        [result appendBytes:(void *) &randomBits length:4];
     }
     NSString *encoded = [result base64EncodedString];
 

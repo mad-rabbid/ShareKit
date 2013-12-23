@@ -93,4 +93,8 @@
         [storage deleteCookie:cookie];
     }
 }
+
+- (void)setSettings:(NSDictionary *)settings {
+    _settings = settings;
+}
 @end

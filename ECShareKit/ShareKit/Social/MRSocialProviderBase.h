@@ -14,6 +14,7 @@ extern NSString *const kMRSocialHTTPMethodPOST;
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong, readonly) AFHTTPRequestOperationManager *httpClient;
 @property (nonatomic, strong) AFHTTPRequestOperation *operation;
+@property (nonatomic, strong, readonly) NSDictionary *settings;
 
 + (NSString *)type;
 

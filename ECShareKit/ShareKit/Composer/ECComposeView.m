@@ -164,6 +164,10 @@
     return self.textView.text;
 }
 
+- (UIImage *)image {
+    return self.imageView.image;
+}
+
 - (void)setPlaceholder:(NSString *)placeholder {
     self.textView.placeholder = placeholder;
 }

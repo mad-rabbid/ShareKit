@@ -2,5 +2,16 @@
     "facebook" : {
         "appId" : "343229532477342",
         "redirectUrl" : "https://fishbite.ru/blank.html"
+    },
+    "twitter" : {
+        "appId" : "5Yr7dxxGn5tCyHA11g",
+        "appSecret" : "oMMobURWRD9dSWooOg1hh02PaadH75Qi0NEdHHZKHqA",
+        "redirectUrl" : "https://fishbite.com/blank.html"
+    },
+    "odnoklassniki" : {
+        "appId" : "207253248",
+        "appSecret" : "10ABEFAF7B8E902E26997E5E",
+        "appPublic" : "CBAQGLFNABABABABA",
+        "redirectUrl" : "http://torg12.imgsmail.ru/model"
     }
 }
