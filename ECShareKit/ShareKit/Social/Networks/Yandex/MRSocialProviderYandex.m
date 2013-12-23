@@ -1,7 +1,7 @@
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
-#import "MRSocialLoginProviderYandex.h"
+#import "MRSocialProviderYandex.h"
 #import "MRSocialHelper.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
 #import "MRSocialAccountInfo.h"
 #import "MRSocialLogging.h"
 
@@ -18,7 +18,7 @@ static NSString *const kYandexApiBase = @"https://login.yandex.ru";
 static NSString *const kYandexApiMethodInfo = @"info";
 
 
-@implementation MRSocialLoginProviderYandex {
+@implementation MRSocialProviderYandex {
 }
 
 - (NSString *)name {

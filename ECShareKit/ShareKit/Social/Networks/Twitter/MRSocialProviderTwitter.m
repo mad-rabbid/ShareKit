@@ -2,9 +2,9 @@
 #import <Social/Social.h>
 #import <Twitter/Twitter.h>
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
-#import "MRSocialLoginProviderTwitter.h"
+#import "MRSocialProviderTwitter.h"
 #import "MRSocialLogging.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
 #import "MRSocialHelper.h"
 #import "MRSocialTwitterRequestBuilder.h"
 #import "MRSocialAccountInfo.h"
@@ -15,13 +15,13 @@ static NSString *const kTwitterConsumerSecret = @"oMMobURWRD9dSWooOg1hh02PaadH75
 static NSString *const kTwitterCallbackUrl = @"https://fishbite.com/blank.html";
 static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
 
-@interface MRSocialLoginProviderTwitter()
+@interface MRSocialProviderTwitter ()
 
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (nonatomic, strong) ACAccount *twitterAccount;
 @end
 
-@implementation MRSocialLoginProviderTwitter {
+@implementation MRSocialProviderTwitter {
 }
 
 - (id)init {
@@ -44,7 +44,7 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
     self.accountStore = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
 
-    __weak MRSocialLoginProviderTwitter *myself = self;
+    __weak MRSocialProviderTwitter *myself = self;
     ACAccountStoreRequestAccessCompletionHandler handler = ^(BOOL granted, NSError *error) {
         if (granted) {
             NSArray *arrayOfAccounts = [myself.accountStore accountsWithAccountType:accountType];
@@ -77,7 +77,7 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
     NSURLRequest *request = [builder buildRequestWithHttpClient:self.httpClient];
     MRLog(@"Request: %@", [request description]);
 
-    __weak MRSocialLoginProviderTwitter *myself = self;
+    __weak MRSocialProviderTwitter *myself = self;
     [self executeRequest:request completion:^(NSString *responseString) {
         [myself handleRequestTokenResponse:responseString];
     }];
@@ -134,7 +134,7 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
     NSURLRequest *request = [builder buildRequestWithHttpClient:self.httpClient];
     MRLog(@"Request: %@", [request description]);
 
-    __weak MRSocialLoginProviderTwitter *myself = self;
+    __weak MRSocialProviderTwitter *myself = self;
     [self executeRequest:request completion:^(NSString *responseString) {
         [myself handleAccessTokenResponse:responseString];
     }];
@@ -166,7 +166,7 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
     NSURLRequest *request = [builder buildRequestWithHttpClient:self.httpClient];
     MRLog(@"Request: %@", [request description]);
 
-    __weak MRSocialLoginProviderTwitter *myself = self;
+    __weak MRSocialProviderTwitter *myself = self;
     [self executeRequest:request completion:^(NSString *responseString) {
         [myself handleGetUserInfoResponse:responseString];
     }];
@@ -189,7 +189,7 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
     NSURLRequest *request = [builder buildRequestWithHttpClient:self.httpClient];
     MRLog(@"Request: %@", [request description]);
 
-    __weak MRSocialLoginProviderTwitter *myself = self;
+    __weak MRSocialProviderTwitter *myself = self;
     [self executeRequest:request completion:^(NSString *responseString) {
         [myself handleReverseAuth:responseString];
     }];
@@ -209,7 +209,7 @@ static NSString *const kTwitterBaseApiUrl = @"https://api.twitter.com";
     [request setAccount:self.twitterAccount];
     MRLog(@"Request: %@", request);
 
-    __weak MRSocialLoginProviderTwitter *myself = self;
+    __weak MRSocialProviderTwitter *myself = self;
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         NSString *source = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
         NSLog(@"The user's info for your server:\n%@", source);

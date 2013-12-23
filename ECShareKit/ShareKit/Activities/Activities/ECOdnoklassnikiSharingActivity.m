@@ -1,5 +1,5 @@
 #import "ECOdnoklassnikiSharingActivity.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
 
 
 @implementation ECOdnoklassnikiSharingActivity {

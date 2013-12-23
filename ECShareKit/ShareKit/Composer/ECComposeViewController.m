@@ -2,9 +2,16 @@
 #import "ECComposeBackgroundView.h"
 #import "ECUserInterface.h"
 #import "ECComposeView.h"
+#import "ECActivity.h"
+#import "MRSocialProvidersFactory.h"
+#import "MRSocialProvider.h"
+#import "MRSocialAccountManager.h"
+#import "MRSocialAccountInfo.h"
+#import "MRPostInfo.h"
 
 static NSInteger const kECComposeContainerHeight = 202;
 static NSInteger const kECBackViewOffset = 4;
+static NSInteger const kECActivityIndicatorViewTag = 10000;
 
 @interface ECComposeViewController () <ECComposeViewDelegate>
 @property(nonatomic, weak, readonly) UIViewController *hostViewController;
@@ -15,8 +22,10 @@ static NSInteger const kECBackViewOffset = 4;
 @property(nonatomic, weak, readonly) UIView *backgroundView;
 @property(nonatomic, weak, readonly) UIView *containerView;
 @property(nonatomic, weak, readonly) UIView *backView;
-@property(nonatomic, weak, readonly) UIView *composeView;
+@property(nonatomic, weak, readonly) ECComposeView *composeView;
 @property(nonatomic, weak, readonly) UIImageView *paperclipView;
+
+@property (nonatomic, strong) id<MRSocialProvider> provider;
 @end
 
 @implementation ECComposeViewController {
@@ -74,6 +83,8 @@ static NSInteger const kECBackViewOffset = 4;
         composeView.backgroundColor = self.tintColor;
     }
 
+    [self createSpinnerView];
+
     if (![ECUserInterface isFlatDesign]) {
         UIImage *paperclipImage = [UIImage imageNamed:@"ECShareKit.bundle/paper-clip.png"];
         CGSize imageSize = paperclipImage.size;
@@ -85,8 +96,37 @@ static NSInteger const kECBackViewOffset = 4;
     }
 }
 
-- (void)createBackground {
+- (UIView *)createSpinnerView {
+    UIView *view = [[UIView alloc] initWithFrame:self.backView.bounds];
+    view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.15];
+    view.tag = kECActivityIndicatorViewTag;
+    view.alpha = 0.0;
 
+    UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicatorView.tag = kECActivityIndicatorViewTag + 1;
+    indicatorView.center = view.center;
+    indicatorView.hidesWhenStopped = YES;
+    [view addSubview:indicatorView];
+
+    [self.backView addSubview:view];
+    return view;
+}
+
+- (void)showSpinner {
+    UIView *spinnerHostView = [self.backView viewWithTag:kECActivityIndicatorViewTag];
+    UIActivityIndicatorView *indicatorView = (UIActivityIndicatorView *)[spinnerHostView viewWithTag:kECActivityIndicatorViewTag + 1];
+    spinnerHostView.alpha = 1.0;
+    [indicatorView startAnimating];
+}
+
+- (void)hideSpinner {
+    UIView *spinnerHostView = [self.backView viewWithTag:kECActivityIndicatorViewTag];
+    UIActivityIndicatorView *indicatorView = (UIActivityIndicatorView *)[spinnerHostView viewWithTag:kECActivityIndicatorViewTag + 1];
+    [indicatorView stopAnimating];
+    spinnerHostView.alpha = 0.0;
+}
+
+- (void)createBackground {
     ECComposeBackgroundView *backgroundView = [[ECComposeBackgroundView alloc] initWithFrame:self.view.bounds];
     backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     backgroundView.centerOffset = CGSizeMake(0, -self.view.frame.size.height / 2);
@@ -224,7 +264,8 @@ static NSInteger const kECBackViewOffset = 4;
 - (id)forwardingTargetForSelector:(SEL)selector {
     if (selector == @selector(setImage:) ||
             selector == @selector(setText:) ||
-            selector == @selector(setPlaceholder:)) {
+            selector == @selector(setPlaceholder:) ||
+            selector == @selector(setImageUrl:)) {
         if (!self.composeView) {
             [self view];
         }
@@ -240,10 +281,34 @@ static NSInteger const kECBackViewOffset = 4;
 }
 
 - (void)postButtonPressed {
-    if (self.completionBlock) {
-        self.completionBlock(self, ECComposeResultPosted);
+    self.provider = [MRSocialProvidersFactory providerWithType:self.activity.activityType];
+    if (!self.provider) {
+        return;
     }
+
+    MRSocialAccountInfo *account = [[MRSocialAccountManager sharedInstance] accountWithType:self.activity.activityType];
+    MRPostInfo *post = [[MRPostInfo alloc] initWithMessage:self.composeView.text pictureUrl:self.composeView.imageUrl];
+
+    [self showSpinner];
+    [self.composeView resignFirstResponder];
+
+    __weak typeof(self) myself = self;
+    [self.provider publish:post account:account completionBlock:^(BOOL isSuccess) {
+       [myself hideSpinner];
+        myself.provider = nil;
+        if (isSuccess) {
+            [myself completeWithResult:ECComposeResultPosted];
+        } else {
+            [myself completeWithResult:ECComposeResultError];
+            [myself.composeView becomeFirstResponder];
+        }
+    }];
+
 }
 
-
+- (void)completeWithResult:(ECComposeResult)result {
+    if (self.completionBlock) {
+        self.completionBlock(self, result);
+    }
+}
 @end

@@ -4,12 +4,15 @@
 #import "ECActivity.h"
 #import "ECComposeViewController.h"
 #import "ECActivityLoginViewController.h"
+#import "Toast+UIView.h"
 
 @interface ECActivityViewController ()
 @property(nonatomic, weak, readonly) UIViewController *hostController;
 @property(nonatomic, weak, readonly) UIView *backgroundView;
 @property(nonatomic, weak, readonly) ECActivityView *activityView;
 @property(nonatomic, strong, readonly) NSArray *activities;
+
+
 @end
 
 @implementation ECActivityViewController {
@@ -65,18 +68,27 @@
 
 - (void)dismissActivityViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
     __weak typeof (self) myself = self;
-    [UIView animateWithDuration:0.4 animations:^{
-        myself.backgroundView.alpha = 0.0;
-        CGRect frame = myself.activityView.frame;
-        frame.origin.y = [UIScreen mainScreen].bounds.size.height;
-        myself.activityView.frame = frame;
-    } completion:^(BOOL finished) {
+
+    void (^block)() = ^() {
         [myself.view removeFromSuperview];
         [myself removeFromParentViewController];
         if (completion) {
             completion();
         }
-    }];
+    };
+
+    if (flag) {
+        [UIView animateWithDuration:0.4 animations:^{
+            myself.backgroundView.alpha = 0.0;
+            CGRect frame = myself.activityView.frame;
+            frame.origin.y = [UIScreen mainScreen].bounds.size.height;
+            myself.activityView.frame = frame;
+        } completion:^(BOOL finished) {
+            block();
+        }];
+    } else {
+        block();
+    }
 }
 
 - (void)presentFromRootViewController {
@@ -104,7 +116,6 @@
         CGRect frame = myself.activityView.frame;
         frame.origin.y = myself.hostController.view.frame.size.height - self.activityView.bounds.size.height;
         myself.activityView.frame = frame;
-
     }];
     
 }
@@ -112,26 +123,61 @@
 - (void)performActivity:(ECActivity *)activity {
     __weak typeof (self) myself = self;
 
-    BOOL isLoggedIn = [[MRSocialAccountManager sharedInstance] isLoggedInWithType:activity.activityType];
-    if (isLoggedIn) {
-        ECComposeViewController *controller = [ECComposeViewController new];
-        controller.title = NSLocalizedString(@"Facebook", nil);
-        controller.text = NSLocalizedString(@"Пример текста...", nil);
-        controller.placeholder = NSLocalizedString(@"Введите текст поста", nil);
-        controller.image = [UIImage imageNamed:@"ECDemo.bundle/image.jpg"];
-
-
-        controller.completionBlock = ^(ECComposeViewController *composeViewController, ECComposeResult result) {
-            [composeViewController dismissViewControllerAnimated:YES completion:nil];
-        };
-        [controller presentFromRootViewController];
+    BOOL isAlreadyLoggedIn = [[MRSocialAccountManager sharedInstance] isLoggedInWithType:activity.activityType];
+    if (isAlreadyLoggedIn) {
+        [self presentComposerWithActivity:activity];
     } else {
-        [ECActivityLoginViewController presentFormViewController:self withActivity:activity completionBlock:^(BOOL loggedIn) {
+        [ECActivityLoginViewController presentFormViewController:self withActivity:activity completionBlock:^(BOOL hasJustLoggedIn) {
             [myself dismissViewControllerAnimated:YES completion:nil];
-            NSLog(@"Is Logged in: %d", loggedIn);
+            NSLog(@"Is logged in: %d", hasJustLoggedIn);
+            if (hasJustLoggedIn) {
+                [myself presentComposerWithActivity:activity];
+            } else {
+                [myself.view makeToast:NSLocalizedString(@"Попытка логина не удалась.", nil)];
+            }
+            [myself.activityView reload];
         }];
     }
 }
+
+- (void)presentComposerWithActivity:(ECActivity *)activity {
+    ECComposeViewController *controller = [ECComposeViewController new];
+    controller.title = activity.activityTitle;
+    controller.activity = activity;
+
+    if ([self.delegate respondsToSelector:@selector(activityViewControllerShareInfo:)]) {
+        NSDictionary *info = [self.delegate activityViewControllerShareInfo:self];
+        controller.text = info[@"message"] ?: @"";
+        controller.placeholder = info[@"placeholder"] ?: @"";
+
+        NSString *imageName = info[@"image"];
+        if (imageName.length) {
+            controller.image = [UIImage imageNamed:imageName];
+        }
+
+        controller.imageUrl = info[@"imageUrl"];
+    }
+
+
+    __weak typeof(self) myself = self;
+    controller.completionBlock = ^(ECComposeViewController *composeViewController, ECComposeResult result) {
+        if (result != ECComposeResultError) {
+            [composeViewController dismissViewControllerAnimated:YES completion:^() {
+                __weak UIView *superview = myself.view.superview;
+                [myself dismissActivityViewControllerAnimated:YES completion:^() {
+                    if (result == ECComposeResultPosted) {
+                        [superview makeToast:@"Сообщение успешно опубликовано!"];
+                    }
+                }];
+            }];
+        } else {
+            [myself.view makeToast:@"Не удалось опубликовать сообщение. Попробуйте повторить позднее." duration:2.0 position:@"center"];
+        }
+    };
+    [controller presentFromRootViewController];
+}
+
+
 #pragma mark -
 #pragma mark Orientation
 

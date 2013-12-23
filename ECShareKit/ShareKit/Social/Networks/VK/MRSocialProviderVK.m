@@ -1,7 +1,7 @@
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
-#import "MRSocialLoginProviderVK.h"
+#import "MRSocialProviderVK.h"
 #import "MRSocialHelper.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
 #import "MRSocialAccountInfo.h"
 #import "MRSocialLogging.h"
 
@@ -18,7 +18,7 @@ static NSString *const kVKApiBase = @"https://api.vk.com/method";
 static NSString *const kVKApiMethodUsersGet = @"users.get";
 static NSString *const kVKApiMethodUsersGetFields = @"uid,first_name,last_name,sex,bdate,photo";
 
-@implementation MRSocialLoginProviderVK {
+@implementation MRSocialProviderVK {
 
 }
 

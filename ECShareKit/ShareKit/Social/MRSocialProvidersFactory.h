@@ -7,11 +7,13 @@ extern NSString *const kMRSocialProviderTypeYandex;
 extern NSString *const kMRSocialProviderTypeFacebook;
 extern NSString *const kMRSocialProviderTypeTwitter;
 
-@protocol MRSocialLoginProvider;
+@protocol MRSocialProvider;
 
 
-@interface MRSocialLoginProviderFactory : NSObject
+@interface MRSocialProvidersFactory : NSObject
 
-+ (id<MRSocialLoginProvider>)loginProviderWithType:(NSString *)type;
++ (void)setSettings:(NSDictionary *)settings;
+
++ (id<MRSocialProvider>)providerWithType:(NSString *)type;
 
 @end

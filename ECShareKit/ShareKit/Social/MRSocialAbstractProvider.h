@@ -1,12 +1,13 @@
 #import <Foundation/Foundation.h>
-#import "MRSocialLoginProvider.h"
+#import "MRSocialProvider.h"
 #import "MRSocialProviderBase.h"
 
 @class AFHTTPRequestOperation;
 @class MRSocialAccountInfo;
 
-@interface MRSocialAbstractLoginProvider : MRSocialProviderBase<MRSocialLoginProvider>
+@interface MRSocialAbstractProvider : MRSocialProviderBase<MRSocialProvider>
 
+@property (nonatomic, strong, readonly) NSDictionary *settings;
 
 - (void)loginWithSuccessBlock:(void (^)(MRSocialAccountInfo *accountInfo))successBlock failBlock:(void (^)())failBlock;
 

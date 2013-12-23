@@ -1,13 +1,13 @@
 #import "ECActivityLoginViewController.h"
 #import "ECActivity.h"
-#import "MRSocialLoginProvider.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvider.h"
+#import "MRSocialProvidersFactory.h"
 #import "MRSocialAccountManager.h"
 
 @interface ECActivityLoginViewController ()
 @property (nonatomic, strong, readonly) ECActivity *activity;
 @property (nonatomic, weak, readonly) UIWebView *webView;
-@property (nonatomic, strong) id<MRSocialLoginProvider> provider;
+@property (nonatomic, strong) id<MRSocialProvider> provider;
 @end
 
 @implementation ECActivityLoginViewController {
@@ -45,7 +45,7 @@
     UIBarButtonItemStyle style = UIDevice.currentDevice.systemVersion.floatValue >= 7.0 ? UIBarButtonItemStyleBordered : UIBarButtonItemStyleDone;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Закрыть", nil) style:style target:self action:@selector(didTouchButtonClose:)];
 
-    _provider = [MRSocialLoginProviderFactory loginProviderWithType:self.activity.activityType];
+    _provider = [MRSocialProvidersFactory providerWithType:self.activity.activityType];
     [_provider setWebView:self.webView];
 
     __weak typeof(self) myself = self;

@@ -11,47 +11,46 @@
 		CA01F0387F736091B44A5DF2 /* ECComposeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F8A671032B5A15B6265B /* ECComposeTextView.m */; };
 		CA01F044DB707294359A72C9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01FB538E2F57E43EA5DA47 /* XCTest.framework */; };
 		CA01F0579158F89B98C70E8F /* ECActivityLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F50C10366025E8D97C74 /* ECActivityLoginViewController.m */; };
-		CA01F098495C3FA94BD92C5D /* MRSocialLoginProviderYandex.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FBFABA0FD92B0D8B044E /* MRSocialLoginProviderYandex.m */; };
+		CA01F098495C3FA94BD92C5D /* MRSocialProviderYandex.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FBFABA0FD92B0D8B044E /* MRSocialProviderYandex.m */; };
 		CA01F0F7EC08442617FD2CED /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01F22182927982C7908227 /* CoreGraphics.framework */; };
 		CA01F1C3A5F7EA4748F0C122 /* ECActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F3E8191452AB041F1BFA /* ECActivityCell.m */; };
 		CA01F239FD588E895F3B9FFB /* ECTwitterSharingActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F827D27135A47DBC0F78 /* ECTwitterSharingActivity.m */; };
 		CA01F256ADA4C049E37B7EA9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01FCC066234952E8C1402C /* UIKit.framework */; };
 		CA01F2A87C625D2E1D0B8F04 /* ECDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F190535F27EBFC773428 /* ECDemoViewController.m */; };
-		CA01F2CEE7096F7BBF0D358F /* MRSocialLoginProviderVK.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F8AAC744A01675ED3101 /* MRSocialLoginProviderVK.m */; };
+		CA01F2CEE7096F7BBF0D358F /* MRSocialProviderVK.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F8AAC744A01675ED3101 /* MRSocialProviderVK.m */; };
 		CA01F304F1F3765486292AFA /* ECActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FFA1C808D558D39365F4 /* ECActivityViewController.m */; };
 		CA01F3721D90C63D9ED09547 /* ECActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FA08ACFEE687544AF750 /* ECActivity.m */; };
-		CA01F3A0CAC6771E6DF329AE /* MRSocialLoginProviderMailRu.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FE46A38790703CA4B79F /* MRSocialLoginProviderMailRu.m */; };
+		CA01F3A0CAC6771E6DF329AE /* MRSocialProviderMailRu.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FE46A38790703CA4B79F /* MRSocialProviderMailRu.m */; };
 		CA01F4CCCE86C11394A3BA81 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA01F9EAED5A7D90F63677BF /* Images.xcassets */; };
 		CA01F5FBD8F283BCA6F40BF6 /* ECFacebookSharingActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FA1C664213B0CB68FB4E /* ECFacebookSharingActivity.m */; };
 		CA01F623B6441D0C88BFB920 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA01FBA2C066B07C261D65F9 /* InfoPlist.strings */; };
 		CA01F66146C5D26AB8FC9A3B /* MRSocialProviderBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FE8B540F51CC3103C07C /* MRSocialProviderBase.m */; };
 		CA01F67886913ED41047775D /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01F68DEBF8AD952F308FFC /* Twitter.framework */; };
-		CA01F687CA02C9C3A18E74A2 /* MRSocialLoginProviderFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F2CC5B9941E7AADE0FCA /* MRSocialLoginProviderFacebook.m */; };
+		CA01F687CA02C9C3A18E74A2 /* MRSocialProviderFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F2CC5B9941E7AADE0FCA /* MRSocialProviderFacebook.m */; };
 		CA01F6D630ADC25F5C7319D6 /* ECDemo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CA01F4C4E0D5569654135FD2 /* ECDemo.bundle */; };
 		CA01F70915F73EA38A005FBC /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01F1FBF7C1137924BC4256 /* Accounts.framework */; };
-		CA01F7A845EC21FA95F9ED99 /* MRSocialLoginProviderFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F0D39DDCD48B4C6DCE41 /* MRSocialLoginProviderFactory.m */; };
+		CA01F7A845EC21FA95F9ED99 /* MRSocialProvidersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F0D39DDCD48B4C6DCE41 /* MRSocialProvidersFactory.m */; };
 		CA01F7B6FD2C830696F4A5D7 /* MRSocialHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F8E964F0BC9EF93F1E49 /* MRSocialHelper.m */; };
 		CA01F8498B4A8AF3169D7EF7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01FCB366E3A02C20F896E8 /* SystemConfiguration.framework */; };
 		CA01F853F321F0DD142D3455 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA01F1D0CA7ACF36B5DB6C42 /* InfoPlist.strings */; };
 		CA01F8601F61423396FED5C4 /* ECMailRuSharingActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F427B7F2ED0A4984F23E /* ECMailRuSharingActivity.m */; };
-		CA01F8C3613C719BE99AD419 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = CA01F675C12D1C87F27ED87C /* .gitignore */; };
 		CA01F8FA8BAE1EE7E16AADB7 /* MRSocialAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FF65524C3C0602A4E51C /* MRSocialAccountInfo.m */; };
 		CA01F90D6AAAB009BC946E38 /* MRSocialTwitterRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FC2460BAE9447EF4C5F0 /* MRSocialTwitterRequestBuilder.m */; };
 		CA01F9137EF1D0FA8B38C01B /* ECComposeRuledView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F87E1C49D9056AF015EC /* ECComposeRuledView.m */; };
-		CA01F923FD06F22BEF3F230F /* MRSocialAbstractLoginProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F0C27FF4ECB5F954CCBE /* MRSocialAbstractLoginProvider.m */; };
-		CA01F982107643F2DDA84C9A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = CA01F542962A14B7C1EC20E3 /* .gitignore */; };
+		CA01F923FD06F22BEF3F230F /* MRSocialAbstractProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F0C27FF4ECB5F954CCBE /* MRSocialAbstractProvider.m */; };
 		CA01F9B9C99E3ED0D8AF6B47 /* ECVKSharingActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FDF05C0E664BC1AB8FD7 /* ECVKSharingActivity.m */; };
 		CA01F9C22FB80231565F893E /* ECComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FBF711D80DB780E9530F /* ECComposeViewController.m */; };
 		CA01F9D67FB200D826C08CFE /* ECComposeBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FC24E101EC91C70A87DA /* ECComposeBackgroundView.m */; };
 		CA01FB2EA51C378C8DD6FB13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FCA6FA79D05A90BF4363 /* main.m */; };
-		CA01FB803149E3CF6DF2C860 /* MRSocialLoginProviderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FECDB65FBB24F515E650 /* MRSocialLoginProviderManager.m */; };
-		CA01FBA4EFE19001F818F097 /* MRSocialLoginProviderOK.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FCD7A108381B422FCFD3 /* MRSocialLoginProviderOK.m */; };
+		CA01FB803149E3CF6DF2C860 /* MRSocialProviderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FECDB65FBB24F515E650 /* MRSocialProviderManager.m */; };
+		CA01FBA4EFE19001F818F097 /* MRSocialProviderOK.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FCD7A108381B422FCFD3 /* MRSocialProviderOK.m */; };
 		CA01FBB2AA3764727C1BD143 /* MRSocialAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FC7CFABFC99855C7BF1B /* MRSocialAccountManager.m */; };
 		CA01FBC986B2F522F3D0B31E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01FCA4DC756704DE9821C9 /* Foundation.framework */; };
 		CA01FC004206AC7D4B8992F1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01FCC066234952E8C1402C /* UIKit.framework */; };
 		CA01FC0974592921B094AC22 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01FCA4DC756704DE9821C9 /* Foundation.framework */; };
 		CA01FC1D58C88EA8C18B5D62 /* ECYandexSharingActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FF89A2FCDA2C2EBC4290 /* ECYandexSharingActivity.m */; };
 		CA01FC3A3ADF43AEDD3E2997 /* ECShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CA01FCE68900A0A6BA192E1D /* ECShareKit.bundle */; };
+		CA01FC4A9E3FCC2649B252B6 /* MRPostInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F538BDB0E6EFFBE09A66 /* MRPostInfo.m */; };
 		CA01FC50E51C48DB52F60585 /* ECComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F0CA7736C8C4F3A116EF /* ECComposeView.m */; };
 		CA01FCC7213B9C6188168DD6 /* ECActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FA711EF0AAF3F642F509 /* ECActivityView.m */; };
 		CA01FD774FBEC79667D1BD50 /* ECOdnoklassnikiSharingActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F334569B6DF38CB591C2 /* ECOdnoklassnikiSharingActivity.m */; };
@@ -59,7 +58,7 @@
 		CA01FDD3E77424C30EF9D0F2 /* ECUserInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FDC72C62C12BEF78368D /* ECUserInterface.m */; };
 		CA01FEE98167371C929136AF /* ECShareKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FBD2C335517253179361 /* ECShareKitTests.m */; };
 		CA01FEEACBC96A1D680C212D /* ECAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F12011B96C4947857A78 /* ECAppDelegate.m */; };
-		CA01FF528EF3F0129012B0FB /* MRSocialLoginProviderTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FC1054473C86454F8A40 /* MRSocialLoginProviderTwitter.m */; };
+		CA01FF528EF3F0129012B0FB /* MRSocialProviderTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FC1054473C86454F8A40 /* MRSocialProviderTwitter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,10 +79,10 @@
 		CA01F05B1F48904F5157B615 /* ECOdnoklassnikiSharingActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECOdnoklassnikiSharingActivity.h; sourceTree = "<group>"; };
 		CA01F08803276A1F073CE224 /* ECShareKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECShareKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA01F0AF38B298F393C9CE4C /* MRSocialProviderBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProviderBase.h; sourceTree = "<group>"; };
-		CA01F0C27FF4ECB5F954CCBE /* MRSocialAbstractLoginProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialAbstractLoginProvider.m; sourceTree = "<group>"; };
+		CA01F0C27FF4ECB5F954CCBE /* MRSocialAbstractProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialAbstractProvider.m; sourceTree = "<group>"; };
 		CA01F0CA7736C8C4F3A116EF /* ECComposeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECComposeView.m; sourceTree = "<group>"; };
-		CA01F0CDBE552AA72368CB88 /* MRSocialLoginProviderFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLoginProviderFactory.h; sourceTree = "<group>"; };
-		CA01F0D39DDCD48B4C6DCE41 /* MRSocialLoginProviderFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialLoginProviderFactory.m; sourceTree = "<group>"; };
+		CA01F0CDBE552AA72368CB88 /* MRSocialProvidersFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProvidersFactory.h; sourceTree = "<group>"; };
+		CA01F0D39DDCD48B4C6DCE41 /* MRSocialProvidersFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProvidersFactory.m; sourceTree = "<group>"; };
 		CA01F12011B96C4947857A78 /* ECAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECAppDelegate.m; sourceTree = "<group>"; };
 		CA01F1457E2DAD0071D64BEF /* ECActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECActivityViewController.h; sourceTree = "<group>"; };
 		CA01F14BF45F707EFBD179D2 /* ECActivityLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECActivityLoginViewController.h; sourceTree = "<group>"; };
@@ -94,38 +93,38 @@
 		CA01F208147FA74FF2D7AD2E /* ECComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECComposeViewController.h; sourceTree = "<group>"; };
 		CA01F22182927982C7908227 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CA01F258890313155009B7F7 /* MRSocialLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLogging.h; sourceTree = "<group>"; };
-		CA01F2CC5B9941E7AADE0FCA /* MRSocialLoginProviderFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialLoginProviderFacebook.m; sourceTree = "<group>"; };
+		CA01F2CC5B9941E7AADE0FCA /* MRSocialProviderFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProviderFacebook.m; sourceTree = "<group>"; };
 		CA01F334569B6DF38CB591C2 /* ECOdnoklassnikiSharingActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECOdnoklassnikiSharingActivity.m; sourceTree = "<group>"; };
 		CA01F37F62964A609C87BA2D /* MRSocialTwitterRequestBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialTwitterRequestBuilder.h; sourceTree = "<group>"; };
-		CA01F39362556379884CED62 /* MRSocialLoginProviderTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLoginProviderTwitter.h; sourceTree = "<group>"; };
+		CA01F39362556379884CED62 /* MRSocialProviderTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProviderTwitter.h; sourceTree = "<group>"; };
 		CA01F3E8191452AB041F1BFA /* ECActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECActivityCell.m; sourceTree = "<group>"; };
 		CA01F4024E3F6466F12026B6 /* ECMailRuSharingActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECMailRuSharingActivity.h; sourceTree = "<group>"; };
 		CA01F41BD7486BF136C0FD03 /* ECShareKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ECShareKit-Prefix.pch"; sourceTree = "<group>"; };
 		CA01F427B7F2ED0A4984F23E /* ECMailRuSharingActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECMailRuSharingActivity.m; sourceTree = "<group>"; };
+		CA01F465E37B0D8F93ADB8B7 /* MRPostInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRPostInfo.h; sourceTree = "<group>"; };
 		CA01F46CAA680B42120A96D1 /* ECComposeBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECComposeBackgroundView.h; sourceTree = "<group>"; };
 		CA01F49DC588D6DC37E27D8D /* ECFacebookSharingActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECFacebookSharingActivity.h; sourceTree = "<group>"; };
 		CA01F4A3B5A429DFE1092D61 /* ECShareKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "ECShareKitTests-Info.plist"; sourceTree = "<group>"; };
 		CA01F4C4E0D5569654135FD2 /* ECDemo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ECDemo.bundle; sourceTree = "<group>"; };
 		CA01F5044B7CED7D8904B1A5 /* ECDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDemoViewController.h; sourceTree = "<group>"; };
-		CA01F507762898C2A5079177 /* MRSocialLoginProviderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLoginProviderManager.h; sourceTree = "<group>"; };
+		CA01F507762898C2A5079177 /* MRSocialProviderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProviderManager.h; sourceTree = "<group>"; };
 		CA01F50C10366025E8D97C74 /* ECActivityLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECActivityLoginViewController.m; sourceTree = "<group>"; };
 		CA01F53426A9C9B7819CECCF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CA01F542962A14B7C1EC20E3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		CA01F538BDB0E6EFFBE09A66 /* MRPostInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRPostInfo.m; sourceTree = "<group>"; };
 		CA01F5A975B9A48ABEEE1DE7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CA01F5CA53478EB3202FAB10 /* MRSocialLoginProviderFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLoginProviderFacebook.h; sourceTree = "<group>"; };
+		CA01F5CA53478EB3202FAB10 /* MRSocialProviderFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProviderFacebook.h; sourceTree = "<group>"; };
 		CA01F600D3258C66B870D31E /* MRSocialAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialAccountManager.h; sourceTree = "<group>"; };
 		CA01F6657D695AD5FFA7A8A8 /* ECAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECAppDelegate.h; sourceTree = "<group>"; };
-		CA01F675C12D1C87F27ED87C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		CA01F68DEBF8AD952F308FFC /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		CA01F827D27135A47DBC0F78 /* ECTwitterSharingActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECTwitterSharingActivity.m; sourceTree = "<group>"; };
 		CA01F87E1C49D9056AF015EC /* ECComposeRuledView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECComposeRuledView.m; sourceTree = "<group>"; };
 		CA01F885CEC8E065D452AE93 /* ECComposeRuledView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECComposeRuledView.h; sourceTree = "<group>"; };
-		CA01F889B67CABFB12AAB55C /* MRSocialLoginProviderVK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLoginProviderVK.h; sourceTree = "<group>"; };
+		CA01F889B67CABFB12AAB55C /* MRSocialProviderVK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProviderVK.h; sourceTree = "<group>"; };
 		CA01F8A671032B5A15B6265B /* ECComposeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECComposeTextView.m; sourceTree = "<group>"; };
-		CA01F8AAC744A01675ED3101 /* MRSocialLoginProviderVK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialLoginProviderVK.m; sourceTree = "<group>"; };
-		CA01F8E176DC4C91D2312761 /* MRSocialLoginProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLoginProvider.h; sourceTree = "<group>"; };
+		CA01F8AAC744A01675ED3101 /* MRSocialProviderVK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProviderVK.m; sourceTree = "<group>"; };
+		CA01F8E176DC4C91D2312761 /* MRSocialProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProvider.h; sourceTree = "<group>"; };
 		CA01F8E964F0BC9EF93F1E49 /* MRSocialHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialHelper.m; sourceTree = "<group>"; };
-		CA01F9540B5CB8E88121444C /* MRSocialAbstractLoginProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialAbstractLoginProvider.h; sourceTree = "<group>"; };
+		CA01F9540B5CB8E88121444C /* MRSocialAbstractProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialAbstractProvider.h; sourceTree = "<group>"; };
 		CA01F963E75899ACBB12A19D /* ECUserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECUserInterface.h; sourceTree = "<group>"; };
 		CA01F973F7C39E746BF637AB /* ECYandexSharingActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECYandexSharingActivity.h; sourceTree = "<group>"; };
 		CA01F9DBB746F519A8A8DACA /* ECShareKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECShareKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,31 +135,31 @@
 		CA01FA71BE094EA9FF6FE235 /* ECShareKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "ECShareKit-Info.plist"; sourceTree = "<group>"; };
 		CA01FA9B07E24F2AA9CD57CE /* ECActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECActivityView.h; sourceTree = "<group>"; };
 		CA01FB10C2486A0AD945AFD8 /* ECActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECActivity.h; sourceTree = "<group>"; };
-		CA01FB4EF462CF99ACB53274 /* MRSocialLoginProviderYandex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLoginProviderYandex.h; sourceTree = "<group>"; };
+		CA01FB4EF462CF99ACB53274 /* MRSocialProviderYandex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProviderYandex.h; sourceTree = "<group>"; };
 		CA01FB538E2F57E43EA5DA47 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CA01FBD2C335517253179361 /* ECShareKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECShareKitTests.m; sourceTree = "<group>"; };
 		CA01FBF711D80DB780E9530F /* ECComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECComposeViewController.m; sourceTree = "<group>"; };
-		CA01FBFABA0FD92B0D8B044E /* MRSocialLoginProviderYandex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialLoginProviderYandex.m; sourceTree = "<group>"; };
-		CA01FC1054473C86454F8A40 /* MRSocialLoginProviderTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialLoginProviderTwitter.m; sourceTree = "<group>"; };
+		CA01FBFABA0FD92B0D8B044E /* MRSocialProviderYandex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProviderYandex.m; sourceTree = "<group>"; };
+		CA01FC1054473C86454F8A40 /* MRSocialProviderTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProviderTwitter.m; sourceTree = "<group>"; };
 		CA01FC2460BAE9447EF4C5F0 /* MRSocialTwitterRequestBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialTwitterRequestBuilder.m; sourceTree = "<group>"; };
 		CA01FC24E101EC91C70A87DA /* ECComposeBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECComposeBackgroundView.m; sourceTree = "<group>"; };
-		CA01FC2E2DF9D6BABEF0FF16 /* MRSocialLoginProviderMailRu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLoginProviderMailRu.h; sourceTree = "<group>"; };
+		CA01FC2E2DF9D6BABEF0FF16 /* MRSocialProviderMailRu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProviderMailRu.h; sourceTree = "<group>"; };
 		CA01FC7CFABFC99855C7BF1B /* MRSocialAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialAccountManager.m; sourceTree = "<group>"; };
 		CA01FCA4DC756704DE9821C9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CA01FCA6FA79D05A90BF4363 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CA01FCB366E3A02C20F896E8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CA01FCC066234952E8C1402C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		CA01FCD7A108381B422FCFD3 /* MRSocialLoginProviderOK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialLoginProviderOK.m; sourceTree = "<group>"; };
+		CA01FCD7A108381B422FCFD3 /* MRSocialProviderOK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProviderOK.m; sourceTree = "<group>"; };
 		CA01FCE68900A0A6BA192E1D /* ECShareKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ECShareKit.bundle; sourceTree = "<group>"; };
-		CA01FD08B56E14BD7F73826D /* MRSocialLoginProviderOK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialLoginProviderOK.h; sourceTree = "<group>"; };
+		CA01FD08B56E14BD7F73826D /* MRSocialProviderOK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProviderOK.h; sourceTree = "<group>"; };
 		CA01FD2E155B738911F05807 /* ECComposeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECComposeTextView.h; sourceTree = "<group>"; };
 		CA01FD966052BE857CF79815 /* ECActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECActivityCell.h; sourceTree = "<group>"; };
 		CA01FDC72C62C12BEF78368D /* ECUserInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECUserInterface.m; sourceTree = "<group>"; };
 		CA01FDF05C0E664BC1AB8FD7 /* ECVKSharingActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECVKSharingActivity.m; sourceTree = "<group>"; };
 		CA01FE19EF944EB039A45A7D /* ECTwitterSharingActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECTwitterSharingActivity.h; sourceTree = "<group>"; };
-		CA01FE46A38790703CA4B79F /* MRSocialLoginProviderMailRu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialLoginProviderMailRu.m; sourceTree = "<group>"; };
+		CA01FE46A38790703CA4B79F /* MRSocialProviderMailRu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProviderMailRu.m; sourceTree = "<group>"; };
 		CA01FE8B540F51CC3103C07C /* MRSocialProviderBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProviderBase.m; sourceTree = "<group>"; };
-		CA01FECDB65FBB24F515E650 /* MRSocialLoginProviderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialLoginProviderManager.m; sourceTree = "<group>"; };
+		CA01FECDB65FBB24F515E650 /* MRSocialProviderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProviderManager.m; sourceTree = "<group>"; };
 		CA01FED156C62E7D479184DA /* ECComposeSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECComposeSupport.h; sourceTree = "<group>"; };
 		CA01FEFF24A98A9BE8614E5D /* MRSocialHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialHelper.h; sourceTree = "<group>"; };
 		CA01FF65524C3C0602A4E51C /* MRSocialAccountInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialAccountInfo.m; sourceTree = "<group>"; };
@@ -274,9 +273,8 @@
 		CA01F5DF91D9645A4C329843 /* MailRu */ = {
 			isa = PBXGroup;
 			children = (
-				CA01F675C12D1C87F27ED87C /* .gitignore */,
-				CA01FC2E2DF9D6BABEF0FF16 /* MRSocialLoginProviderMailRu.h */,
-				CA01FE46A38790703CA4B79F /* MRSocialLoginProviderMailRu.m */,
+				CA01FC2E2DF9D6BABEF0FF16 /* MRSocialProviderMailRu.h */,
+				CA01FE46A38790703CA4B79F /* MRSocialProviderMailRu.m */,
 			);
 			path = MailRu;
 			sourceTree = "<group>";
@@ -300,8 +298,8 @@
 		CA01F97A31F9E9AC4A90B45B /* VK */ = {
 			isa = PBXGroup;
 			children = (
-				CA01F889B67CABFB12AAB55C /* MRSocialLoginProviderVK.h */,
-				CA01F8AAC744A01675ED3101 /* MRSocialLoginProviderVK.m */,
+				CA01F889B67CABFB12AAB55C /* MRSocialProviderVK.h */,
+				CA01F8AAC744A01675ED3101 /* MRSocialProviderVK.m */,
 			);
 			path = VK;
 			sourceTree = "<group>";
@@ -336,6 +334,8 @@
 				CA01FEFF24A98A9BE8614E5D /* MRSocialHelper.h */,
 				CA01F8E964F0BC9EF93F1E49 /* MRSocialHelper.m */,
 				CA01F258890313155009B7F7 /* MRSocialLogging.h */,
+				CA01F538BDB0E6EFFBE09A66 /* MRPostInfo.m */,
+				CA01F465E37B0D8F93ADB8B7 /* MRPostInfo.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -348,13 +348,13 @@
 				CA01FFED275B9A63110972D5 /* Networks */,
 				CA01F0AF38B298F393C9CE4C /* MRSocialProviderBase.h */,
 				CA01FE8B540F51CC3103C07C /* MRSocialProviderBase.m */,
-				CA01F8E176DC4C91D2312761 /* MRSocialLoginProvider.h */,
-				CA01F0CDBE552AA72368CB88 /* MRSocialLoginProviderFactory.h */,
-				CA01F0D39DDCD48B4C6DCE41 /* MRSocialLoginProviderFactory.m */,
-				CA01F507762898C2A5079177 /* MRSocialLoginProviderManager.h */,
-				CA01FECDB65FBB24F515E650 /* MRSocialLoginProviderManager.m */,
-				CA01F9540B5CB8E88121444C /* MRSocialAbstractLoginProvider.h */,
-				CA01F0C27FF4ECB5F954CCBE /* MRSocialAbstractLoginProvider.m */,
+				CA01F8E176DC4C91D2312761 /* MRSocialProvider.h */,
+				CA01F0CDBE552AA72368CB88 /* MRSocialProvidersFactory.h */,
+				CA01F0D39DDCD48B4C6DCE41 /* MRSocialProvidersFactory.m */,
+				CA01F507762898C2A5079177 /* MRSocialProviderManager.h */,
+				CA01FECDB65FBB24F515E650 /* MRSocialProviderManager.m */,
+				CA01F9540B5CB8E88121444C /* MRSocialAbstractProvider.h */,
+				CA01F0C27FF4ECB5F954CCBE /* MRSocialAbstractProvider.m */,
 			);
 			path = Social;
 			sourceTree = "<group>";
@@ -362,8 +362,8 @@
 		CA01FBDB027F03E04EC158BE /* Facebook */ = {
 			isa = PBXGroup;
 			children = (
-				CA01F5CA53478EB3202FAB10 /* MRSocialLoginProviderFacebook.h */,
-				CA01F2CC5B9941E7AADE0FCA /* MRSocialLoginProviderFacebook.m */,
+				CA01F5CA53478EB3202FAB10 /* MRSocialProviderFacebook.h */,
+				CA01F2CC5B9941E7AADE0FCA /* MRSocialProviderFacebook.m */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
@@ -381,8 +381,8 @@
 		CA01FD591B46F59AFB93FB19 /* Yandex */ = {
 			isa = PBXGroup;
 			children = (
-				CA01FB4EF462CF99ACB53274 /* MRSocialLoginProviderYandex.h */,
-				CA01FBFABA0FD92B0D8B044E /* MRSocialLoginProviderYandex.m */,
+				CA01FB4EF462CF99ACB53274 /* MRSocialProviderYandex.h */,
+				CA01FBFABA0FD92B0D8B044E /* MRSocialProviderYandex.m */,
 			);
 			path = Yandex;
 			sourceTree = "<group>";
@@ -390,9 +390,8 @@
 		CA01FDF70F2442E392AFC60F /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
-				CA01F542962A14B7C1EC20E3 /* .gitignore */,
-				CA01F39362556379884CED62 /* MRSocialLoginProviderTwitter.h */,
-				CA01FC1054473C86454F8A40 /* MRSocialLoginProviderTwitter.m */,
+				CA01F39362556379884CED62 /* MRSocialProviderTwitter.h */,
+				CA01FC1054473C86454F8A40 /* MRSocialProviderTwitter.m */,
 				CA01F37F62964A609C87BA2D /* MRSocialTwitterRequestBuilder.h */,
 				CA01FC2460BAE9447EF4C5F0 /* MRSocialTwitterRequestBuilder.m */,
 			);
@@ -452,8 +451,8 @@
 		CA01FFA1CE634B327E8E5023 /* Odnoklassniki */ = {
 			isa = PBXGroup;
 			children = (
-				CA01FD08B56E14BD7F73826D /* MRSocialLoginProviderOK.h */,
-				CA01FCD7A108381B422FCFD3 /* MRSocialLoginProviderOK.m */,
+				CA01FD08B56E14BD7F73826D /* MRSocialProviderOK.h */,
+				CA01FCD7A108381B422FCFD3 /* MRSocialProviderOK.m */,
 			);
 			path = Odnoklassniki;
 			sourceTree = "<group>";
@@ -563,8 +562,6 @@
 				CA01F4CCCE86C11394A3BA81 /* Images.xcassets in Resources */,
 				CA01FC3A3ADF43AEDD3E2997 /* ECShareKit.bundle in Resources */,
 				CA01F6D630ADC25F5C7319D6 /* ECDemo.bundle in Resources */,
-				CA01F8C3613C719BE99AD419 /* .gitignore in Resources */,
-				CA01F982107643F2DDA84C9A /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,17 +617,17 @@
 				CA01F7B6FD2C830696F4A5D7 /* MRSocialHelper.m in Sources */,
 				CA01F8FA8BAE1EE7E16AADB7 /* MRSocialAccountInfo.m in Sources */,
 				CA01FBB2AA3764727C1BD143 /* MRSocialAccountManager.m in Sources */,
-				CA01F2CEE7096F7BBF0D358F /* MRSocialLoginProviderVK.m in Sources */,
-				CA01F3A0CAC6771E6DF329AE /* MRSocialLoginProviderMailRu.m in Sources */,
-				CA01F098495C3FA94BD92C5D /* MRSocialLoginProviderYandex.m in Sources */,
-				CA01FF528EF3F0129012B0FB /* MRSocialLoginProviderTwitter.m in Sources */,
+				CA01F2CEE7096F7BBF0D358F /* MRSocialProviderVK.m in Sources */,
+				CA01F3A0CAC6771E6DF329AE /* MRSocialProviderMailRu.m in Sources */,
+				CA01F098495C3FA94BD92C5D /* MRSocialProviderYandex.m in Sources */,
+				CA01FF528EF3F0129012B0FB /* MRSocialProviderTwitter.m in Sources */,
 				CA01F90D6AAAB009BC946E38 /* MRSocialTwitterRequestBuilder.m in Sources */,
-				CA01F687CA02C9C3A18E74A2 /* MRSocialLoginProviderFacebook.m in Sources */,
-				CA01FBA4EFE19001F818F097 /* MRSocialLoginProviderOK.m in Sources */,
+				CA01F687CA02C9C3A18E74A2 /* MRSocialProviderFacebook.m in Sources */,
+				CA01FBA4EFE19001F818F097 /* MRSocialProviderOK.m in Sources */,
 				CA01F66146C5D26AB8FC9A3B /* MRSocialProviderBase.m in Sources */,
-				CA01F7A845EC21FA95F9ED99 /* MRSocialLoginProviderFactory.m in Sources */,
-				CA01FB803149E3CF6DF2C860 /* MRSocialLoginProviderManager.m in Sources */,
-				CA01F923FD06F22BEF3F230F /* MRSocialAbstractLoginProvider.m in Sources */,
+				CA01F7A845EC21FA95F9ED99 /* MRSocialProvidersFactory.m in Sources */,
+				CA01FB803149E3CF6DF2C860 /* MRSocialProviderManager.m in Sources */,
+				CA01F923FD06F22BEF3F230F /* MRSocialAbstractProvider.m in Sources */,
 				CA01FD774FBEC79667D1BD50 /* ECOdnoklassnikiSharingActivity.m in Sources */,
 				CA01F239FD588E895F3B9FFB /* ECTwitterSharingActivity.m in Sources */,
 				CA01F8601F61423396FED5C4 /* ECMailRuSharingActivity.m in Sources */,
@@ -642,6 +639,7 @@
 				CA01FCC7213B9C6188168DD6 /* ECActivityView.m in Sources */,
 				CA01F1C3A5F7EA4748F0C122 /* ECActivityCell.m in Sources */,
 				CA01F0579158F89B98C70E8F /* ECActivityLoginViewController.m in Sources */,
+				CA01FC4A9E3FCC2649B252B6 /* MRPostInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +692,7 @@
 				INFOPLIST_FILE = "ECShareKit/ECShareKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -796,6 +795,7 @@
 				INFOPLIST_FILE = "ECShareKit/ECShareKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

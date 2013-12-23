@@ -3,7 +3,8 @@
 #import "MRSocialAccountManager.h"
 #import "ECActivity.h"
 #import "ECComposeViewController.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
+#import "MRSocialLogging.h"
 
 static CGFloat kECCellDimension = 76;
 static CGFloat kECTitleHeight = 40;
@@ -97,6 +98,7 @@ static NSString *const kECCellIdentifier = @"cellIdentifier";
 
     __weak typeof(self) myself = self;
     cell.actionBlock = ^(ECActivity *current) {
+        [myself logoutWithActivity:current];
     };
     return cell;
 }
@@ -142,4 +144,13 @@ static NSString *const kECCellIdentifier = @"cellIdentifier";
     CGContextRestoreGState(context);
 }
 
+- (void)reload {
+    [self.collectionView reloadData];
+}
+
+- (void)logoutWithActivity:(ECActivity *)activity {
+    MRLog(@"Logging out from an activity with type: %@", activity.activityType);
+    [[MRSocialAccountManager sharedInstance] removeAccountWithType:activity.activityType];
+    [self reload];
+}
 @end

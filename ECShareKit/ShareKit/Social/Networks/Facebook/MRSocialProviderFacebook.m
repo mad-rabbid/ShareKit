@@ -1,20 +1,23 @@
 #import <Accounts/Accounts.h>
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
-#import "MRSocialLoginProviderFacebook.h"
+#import "MRSocialProviderFacebook.h"
 #import "MRSocialHelper.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
 #import "MRSocialLogging.h"
 #import "MRSocialAccountInfo.h"
+#import "MRPostInfo.h"
 
-static NSString *const kFacebookAppId = @"343229532477342";
-//static NSString *const kFacebookSecret = @"f1e6569333fe476b8f2978580cf12d10";
+static NSString *const kFacebookAppIdKey = @"appId";
+static NSString *const kFacebookRedirectURIKey = @"redirectUrl";
 
-static NSString *const kFacebookPermissionList = @"user_birthday,email,publish_stream";
-static NSString *const kFacebookRedirectURI = @"https://fishbite.ru/blank.html";
+static NSString *const kFacebookReadPermissionsList = @"user_birthday,email,basic_info";
+static NSString *const kFacebookWritePermissionsList = @"publish_actions";
 static NSString *const kFacebookAuthorizationURL = @"https://graph.facebook.com/oauth/authorize";
 static NSString *const kFacebookApiBaseURL = @"https://graph.facebook.com";
 
-@implementation MRSocialLoginProviderFacebook {
+static NSString *const kFacebookPermissionsSeparator = @",";
+
+@implementation MRSocialProviderFacebook {
 }
 
 - (NSString *)name {
@@ -38,42 +41,59 @@ static NSString *const kFacebookApiBaseURL = @"https://graph.facebook.com";
     ACAccountStore *accountStore = [ACAccountStore new];
     ACAccountType *facebookAccountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
 
-    NSDictionary *options = @{
-        ACFacebookAppIdKey : kFacebookAppId,
+    NSMutableDictionary *options = [@{
+        ACFacebookAppIdKey : self.settings[kFacebookAppIdKey],
         ACFacebookAudienceKey : ACFacebookAudienceOnlyMe,
-        ACFacebookPermissionsKey : @[@"user_birthday", @"email", @"publish_stream"]
-    };
+        ACFacebookPermissionsKey : [kFacebookReadPermissionsList componentsSeparatedByString:kFacebookPermissionsSeparator]
+    } mutableCopy];
 
-    __weak MRSocialLoginProviderFacebook *myself = self;
+    __weak MRSocialProviderFacebook *myself = self;
     [accountStore requestAccessToAccountsWithType:facebookAccountType options:options completion:^(BOOL granted, NSError *error) {
         if (granted) {
-            NSArray *accounts = [accountStore accountsWithAccountType:facebookAccountType];
-            ACAccount *facebookAccount = [accounts lastObject];
-            ACAccountCredential *credential = [facebookAccount credential];
-            NSString *accessToken = [credential oauthToken];
-            MRLog(@"Facebook Access Token: %@", accessToken);
+            //TODO: remove these lines after debugging is finished
+            error = [[NSError alloc] initWithDomain:@"domain" code:ACErrorAccountNotFound userInfo:nil];
+            [myself handleNativeLoginError:error];
+            return;
 
+            options[ACFacebookPermissionsKey] = [kFacebookWritePermissionsList componentsSeparatedByString:kFacebookPermissionsSeparator];
 
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"%@",error.description);
-                if (error.code == ACErrorAccountNotFound) {
-                    NSURLRequest *request = self.loginRequest;
-                    [self clearCookiesForRequest:request];
-                    [self.webView loadRequest:self.loginRequest];
+            [accountStore requestAccessToAccountsWithType:facebookAccountType options:options completion:^(BOOL grantedWriting, NSError *errorWriting) {
+                if (grantedWriting) {
+                    NSArray *accounts = [accountStore accountsWithAccountType:facebookAccountType];
+                    ACAccount *facebookAccount = [accounts lastObject];
+                    ACAccountCredential *credential = [facebookAccount credential];
+
+                    NSString *accessToken = [credential oauthToken];
+                    MRLog(@"Facebook Access Token: %@", accessToken);
+
+                    [myself handleSuccessfulResult:@{@"access_token" : accessToken }];
                 } else {
-                    [myself fail];
-                }
-            });
-
+                    [myself handleNativeLoginError:errorWriting];
+                };
+            }];
+        } else {
+            [myself handleNativeLoginError:error];
         }
     }];
 }
 
+- (void)handleNativeLoginError:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"%@",error.description);
+        if (error.code == ACErrorAccountNotFound) {
+            NSURLRequest *request = self.loginRequest;
+            [self clearCookiesForRequest:request];
+            [self.webView loadRequest:self.loginRequest];
+        } else {
+            [self fail];
+        }
+    });
+}
+
 - (NSURLRequest *)loginRequest {
     NSString *stringUrl = [NSString stringWithFormat:@"%@?%@", kFacebookAuthorizationURL, [MRSocialHelper parametersStringWithDictionary:@{
-        @"client_id" : kFacebookAppId,
-        @"scope" : kFacebookPermissionList,
+        @"client_id" : self.settings[kFacebookAppIdKey],
+        @"scope" : [NSString stringWithFormat:@"%@,%@", kFacebookReadPermissionsList, kFacebookWritePermissionsList],
         @"response_type" : @"token",
         @"redirect_uri" : self.redirectURI,
         @"display" : @"touch"
@@ -88,7 +108,7 @@ static NSString *const kFacebookApiBaseURL = @"https://graph.facebook.com";
 }
 
 - (NSString *)redirectURI {
-    return kFacebookRedirectURI;
+    return self.settings[kFacebookRedirectURIKey];
 }
 
 - (void)loadUserInfo:(MRSocialAccountInfo *)account {
@@ -167,4 +187,31 @@ static NSString *const kFacebookApiBaseURL = @"https://graph.facebook.com";
     return NO;
 }
 
+- (void)publish:(MRPostInfo *)postInfo account:(MRSocialAccountInfo *)account completionBlock:(void (^)(BOOL isSuccess))completionBlock {
+    NSDictionary *parameters = @{
+        @"message" : postInfo.message ?: @"",
+        @"picture" : postInfo.pictureUrl ?: @"",
+        @"access_token" : account.accessToken
+    };
+
+    __weak typeof(self) myself = self;
+    self.operation = [self.httpClient POST:@"me/feed" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [myself resetNetworkOperation];
+        [myself handlePublishResponse:operation.response result:responseObject completionBlock:completionBlock];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        MRLog(@"Error: %@", [error localizedDescription]);
+        [myself resetNetworkOperation];
+        if (completionBlock) {
+            completionBlock(NO);
+        }
+    }];
+}
+
+- (void)handlePublishResponse:(NSHTTPURLResponse *)response result:(id)result completionBlock:(void (^)(BOOL isSuccess))completionBlock {
+    BOOL isSuccess = (response.statusCode == 200);
+    MRLog(@"User info is: %@", result);
+    if (completionBlock) {
+        completionBlock(isSuccess);
+    }
+}
 @end

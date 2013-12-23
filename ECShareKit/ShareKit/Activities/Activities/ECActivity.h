@@ -6,5 +6,4 @@
 - (NSString *)activityType;
 - (NSString *)activityTitle;
 - (UIImage *)activityImage;
-
 @end

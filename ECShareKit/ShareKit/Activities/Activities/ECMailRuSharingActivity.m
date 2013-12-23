@@ -1,5 +1,5 @@
 #import "ECMailRuSharingActivity.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
 
 
 @implementation ECMailRuSharingActivity {

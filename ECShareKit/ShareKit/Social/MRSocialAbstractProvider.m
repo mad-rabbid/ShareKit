@@ -1,18 +1,24 @@
-#import "MRSocialAbstractLoginProvider.h"
+#import "MRSocialAbstractProvider.h"
 #import "MRSocialHelper.h"
 #import "MRSocialAccountInfo.h"
 #import "MRSocialLogging.h"
+#import "MRPostInfo.h"
 
 NSTimeInterval const kMRTimeoutInterval = 30.0;
 
 NSString *const kMRSocialHTTPMethodGET = @"GET";
 NSString *const kMRSocialHTTPMethodPOST = @"POST";
 
-@interface MRSocialAbstractLoginProvider () <UIWebViewDelegate>
+@interface MRSocialAbstractProvider () <UIWebViewDelegate>
+@property (nonatomic, strong) NSDictionary *settings;
 @end
 
-@implementation MRSocialAbstractLoginProvider {
+@implementation MRSocialAbstractProvider {
 
+}
+
+- (void)setSettings:(NSDictionary *)settings {
+    _settings = settings;
 }
 
 - (void)loginWithSuccessBlock:(void (^)(MRSocialAccountInfo *accountInfo))successBlock failBlock:(void (^)())failBlock {
@@ -80,4 +86,13 @@ NSString *const kMRSocialHTTPMethodPOST = @"POST";
 - (MRSocialAccountInfo *)createAccountWithDictionary:(NSDictionary *)dictionary {
     return [[MRSocialAccountInfo alloc] initWithType:[self.class type] accessToken:dictionary[@"access_token"] refreshToken:dictionary[@"refresh_token"]];
 }
+
+#pragma mark - Post
+
+- (void)publish:(MRPostInfo *)postInfo account:(MRSocialAccountInfo *)accountInfo completionBlock:(void (^)(BOOL isSuccess))completionBlock {
+    if (completionBlock) {
+        completionBlock(NO);
+    }
+}
+
 @end

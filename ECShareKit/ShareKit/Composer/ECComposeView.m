@@ -13,6 +13,7 @@
 @property (nonatomic, weak, readonly) UIView *textViewContainer;
 @property (nonatomic, weak, readonly) UIImageView *imageView;
 @property (nonatomic, weak, readonly) ECComposeTextView *textView;
+@property (nonatomic, strong) NSString *imageUrl;
 @end
 
 @implementation ECComposeView {
@@ -157,6 +158,10 @@
 
 - (void)setText:(NSString *)text {
     self.textView.text = text;
+}
+
+- (NSString *)text {
+    return self.textView.text;
 }
 
 - (void)setPlaceholder:(NSString *)placeholder {

@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <Social/Social.h>
-#import "MRSocialLoginProvider.h"
+#import "MRSocialProvider.h"
 #import "MRSocialProviderBase.h"
 
 @protocol MRGenericTwitterRequest
@@ -8,5 +8,5 @@
 - (void)setAccount:(ACAccount *)account;
 @end
 
-@interface MRSocialLoginProviderTwitter : MRSocialProviderBase<MRSocialLoginProvider>
+@interface MRSocialProviderTwitter : MRSocialProviderBase<MRSocialProvider>
 @end

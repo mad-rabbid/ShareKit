@@ -1,5 +1,5 @@
 #import "ECFacebookSharingActivity.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
 
 
 @implementation ECFacebookSharingActivity {

@@ -1,6 +1,7 @@
 #import "MRSocialAccountManager.h"
 #import "FXKeychain.h"
 #import "MRSocialAccountInfo.h"
+#import "MRSocialLogging.h"
 
 static NSString *const kMRKeychainService = @"mad.rabbid.social.login";
 static NSString *const kMRKeychainKeySocialAccount = @"mad.rabbid.general.social.account";
@@ -39,7 +40,15 @@ static NSString *const kMRKeychainKeySocialAccount = @"mad.rabbid.general.social
 - (MRSocialAccountInfo *)accountWithType:(NSString *)type {
     MRSocialAccountInfo *info = self.accountsCache[type];
     if (!info) {
-        info = self.keychain[type];
+        NSDictionary *dictionary = self.keychain[type];
+        if ([dictionary isKindOfClass:NSDictionary.class]) {
+            @try {
+                info = [MRSocialAccountInfo unmarshal:dictionary];
+            } @catch (NSException *exception) {
+                MRLog(@"Unmarshalling of an instance of MRSocialAccountInfo failed: %@", [exception description]);
+            }
+        }
+
         if (info) {
             self.accountsCache[type] = info;
         }

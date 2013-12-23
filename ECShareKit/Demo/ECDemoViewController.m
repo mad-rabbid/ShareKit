@@ -7,11 +7,13 @@
 #import "ECMailRuSharingActivity.h"
 #import "ECYandexSharingActivity.h"
 #import "ECActivityViewController.h"
+#import "MRSocialProvidersFactory.h"
+#import "JSONKit.h"
 
 #define kECButtonWidth 150
 #define kECButtonHeight 50
 
-@interface ECDemoViewController ()
+@interface ECDemoViewController () <ECActivityViewControllerDelegate>
 @end
 
 @implementation ECDemoViewController {
@@ -29,6 +31,14 @@
     [self.view addSubview:button];
 
     button.center = self.view.center;
+
+    [self loadSocialSettings];
+}
+
+- (void)loadSocialSettings {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ECDemo.bundle/ECShareKit.json" ofType:nil];
+    NSStringEncoding encoding = NSUTF8StringEncoding;
+    [MRSocialProvidersFactory setSettings:[[NSString stringWithContentsOfFile:path usedEncoding:&encoding error:nil] objectFromJSONString]];
 }
 
 - (void)didTouchButton:(id)sender {
@@ -61,8 +71,18 @@
                                                                                      [ECMailRuSharingActivity new],
                                                                                      [ECYandexSharingActivity new]
                                                                              ]];
-
+    controller.delegate = self;
     controller.title = NSLocalizedString(@"Поделиться товарным предложением", nil);
     [controller presentFromRootViewController];
 }
+
+- (NSDictionary *)activityViewControllerShareInfo:(ECActivityViewController *)activityViewController {
+    return @{
+        @"message" : @"Сотовый телефон Apple iPhone 5S 16GB",
+        @"image" : @"ECDemo.bundle/image.jpg",
+        @"placeholder" : @"Введите текст поста здесь",
+        @"imageUrl" : @"http://torg12.imgsmail.ru/model/165/13900954/1-230.jpg"
+    };
+}
+
 @end

@@ -9,6 +9,9 @@
 @property (nonatomic, weak) UIViewController<ECComposeViewDelegate> *delegate;
 
 
+- (NSString *)text;
+- (NSString *)imageUrl;
+
 @end
 
 @protocol ECComposeViewDelegate <NSObject>

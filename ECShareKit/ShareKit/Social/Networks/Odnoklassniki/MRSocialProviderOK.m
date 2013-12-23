@@ -1,9 +1,9 @@
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
-#import "MRSocialLoginProviderOK.h"
+#import "MRSocialProviderOK.h"
 #import "MRSocialHelper.h"
 #import "MRSocialAccountInfo.h"
 #import "MRSocialLogging.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
 
 static NSString *const kOKAppId = @"189607424";
 
@@ -17,7 +17,7 @@ static NSString *const kOKBaseApiURL = @"http://api.odnoklassniki.ru";
 
 static NSString *const kOKApiPathToken = @"oauth/token.do";
 static NSString *const kOKApiGetCurrentUser = @"api/users/getCurrentUser";
-@implementation MRSocialLoginProviderOK {
+@implementation MRSocialProviderOK {
 
 }
 

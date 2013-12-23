@@ -1,9 +1,9 @@
 #import <Foundation/Foundation.h>
 
-@protocol MRSocialLoginProvider;
+@protocol MRSocialProvider;
 
 
-@interface MRSocialLoginProviderManager : NSObject
+@interface MRSocialProviderManager : NSObject
 
 + (instancetype)sharedInstance;
 

@@ -1,5 +1,6 @@
 #import "MRSocialAccountInfo.h"
 #import "MRSocialHelper.h"
+#import "MRPostInfo.h"
 
 static NSString *const kMRAccountInfoVersion = @"1.0.0";
 

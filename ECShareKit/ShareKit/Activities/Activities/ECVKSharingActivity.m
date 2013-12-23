@@ -1,5 +1,5 @@
 #import "ECVKSharingActivity.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
 
 
 @implementation ECVKSharingActivity {

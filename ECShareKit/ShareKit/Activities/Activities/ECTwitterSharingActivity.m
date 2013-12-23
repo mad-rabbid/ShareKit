@@ -1,5 +1,5 @@
 #import "ECTwitterSharingActivity.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
 
 
 @implementation ECTwitterSharingActivity {

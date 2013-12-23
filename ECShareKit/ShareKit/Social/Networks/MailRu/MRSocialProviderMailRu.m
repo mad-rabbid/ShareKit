@@ -1,9 +1,9 @@
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
-#import "MRSocialLoginProviderMailRu.h"
+#import "MRSocialProviderMailRu.h"
 #import "MRSocialHelper.h"
 #import "MRSocialLogging.h"
 #import "MRSocialAccountInfo.h"
-#import "MRSocialLoginProviderFactory.h"
+#import "MRSocialProvidersFactory.h"
 
 static NSString *const kMailRuSocialLoginProviderType = @"mailru";
 static NSString *const kMailRuAppId = @"708114";
@@ -19,7 +19,7 @@ static NSString *const kMailRuAllowedURLPrefix = @"connect.mail.ru/oauth";
 static NSString *const kMailRuApiBase = @"http://www.appsmail.ru/platform/api";
 static NSString *const kMailRuApiMethodGetInfo = @"users.getInfo";
 
-@implementation MRSocialLoginProviderMailRu {
+@implementation MRSocialProviderMailRu {
 }
 
 - (NSString *)name {
