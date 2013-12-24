@@ -4,22 +4,38 @@
 #import "MRSocialProvidersFactory.h"
 #import "MRSocialAccountInfo.h"
 #import "MRSocialLogging.h"
+#import "MRSocialVKWallPostCommand.h"
+#import "MRPostInfo.h"
 
 #define kVKSexMan  2
 #define kVKSexWoman 1
 
-static NSString *const kVKAppId = @"3785987";
-static NSString *const kVKPermissionList = @"friends,status";
+static NSString *const kVKAppIdKey = @"appId";
+
 static NSString *const kVKRedirectURI = @"https://oauth.vk.com/blank.html";
 static NSString *const kVKAuthorizationURL = @"https://oauth.vk.com/authorize";
 static NSString *const kVKErrorPageURLPrefix = @"https://oauth.vk.com/error";
 
+static NSString *const kVKPermissionList = @"status,wall,photos";
 static NSString *const kVKApiBase = @"https://api.vk.com/method";
+
 static NSString *const kVKApiMethodUsersGet = @"users.get";
 static NSString *const kVKApiMethodUsersGetFields = @"uid,first_name,last_name,sex,bdate,photo";
 
-@implementation MRSocialProviderVK {
+@interface MRSocialProviderVK ()
+@property (nonatomic, strong) MRSocialVKWallPostCommand *wallPostCommand;
+@end
 
+@implementation MRSocialProviderVK {
+}
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.httpClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", @"application/json", nil];
+    }
+
+    return self;
 }
 
 - (NSString *)name {
@@ -28,7 +44,7 @@ static NSString *const kVKApiMethodUsersGetFields = @"uid,first_name,last_name,s
 
 - (NSURLRequest *)loginRequest {
     NSString *stringUrl = [NSString stringWithFormat:@"%@?%@", kVKAuthorizationURL, [MRSocialHelper parametersStringWithDictionary:@{
-        @"client_id" : kVKAppId,
+        @"client_id" : self.settings[kVKAppIdKey],
         @"scope" : kVKPermissionList,
         @"response_type" : @"token",
         @"redirect_uri" : self.redirectURI,
@@ -125,5 +141,20 @@ static NSString *const kVKApiMethodUsersGetFields = @"uid,first_name,last_name,s
     MRLog(@"AccountInfo is %@", account);
 }
 
+- (void)publish:(MRPostInfo *)postInfo account:(MRSocialAccountInfo *)accountInfo completionBlock:(void (^)(BOOL isSuccess))completionBlock {
+    __weak typeof(self) myself = self;
+    MRSocialVKWallPostCommand *command = [[MRSocialVKWallPostCommand alloc] initWithHttpClient:self.httpClient postInfo:postInfo];
+    command.account = accountInfo;
+    command.completionBlock = ^(BOOL isSuccess) {
+        if (completionBlock) {
+            completionBlock(isSuccess);
+
+            myself.wallPostCommand = nil;
+        }
+    };
+
+    self.wallPostCommand = command;
+    [self.wallPostCommand execute];
+}
 
 @end

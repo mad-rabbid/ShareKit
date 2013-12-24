@@ -4,20 +4,21 @@
 #import "MRSocialLogging.h"
 #import "MRSocialAccountInfo.h"
 #import "MRSocialProvidersFactory.h"
+#import "MRPostInfo.h"
 
-static NSString *const kMailRuSocialLoginProviderType = @"mailru";
-static NSString *const kMailRuAppId = @"708114";
+static NSString *const kMailRuAppIdKey = @"appId";
 
-static NSString *const kMailRuPrivateKey = @"a8a9203bfd3a9bc461034f675e0ff815";
-static NSString *const kMailRuPublicKey = @"277f80def05245252f75d7eebda75fb3";
+static NSString *const kMailRuPrivateKey = @"appSecret";
+static NSString *const kMailRuPublicKey = @"appPublic";
 
-static NSString *const kMailRuPermissionList = @"";
+static NSString *const kMailRuPermissionList = @"stream";
 static NSString *const kMailRuRedirectURI = @"http://connect.mail.ru/oauth/success.html";
 static NSString *const kMailRuAuthorizationURL = @"https://connect.mail.ru/oauth/authorize";
 static NSString *const kMailRuAllowedURLPrefix = @"connect.mail.ru/oauth";
 
 static NSString *const kMailRuApiBase = @"http://www.appsmail.ru/platform/api";
 static NSString *const kMailRuApiMethodGetInfo = @"users.getInfo";
+static NSString *const kMailRuApiMethodStreamPost = @"stream.post";
 
 @implementation MRSocialProviderMailRu {
 }
@@ -28,7 +29,7 @@ static NSString *const kMailRuApiMethodGetInfo = @"users.getInfo";
 
 - (NSURLRequest *)loginRequest {
     NSString *stringUrl = [NSString stringWithFormat:@"%@?%@", kMailRuAuthorizationURL, [MRSocialHelper parametersStringWithDictionary:@{
-        @"client_id" : kMailRuAppId,
+        @"client_id" : self.settings[kMailRuAppIdKey],
         @"scope" : kMailRuPermissionList,
         @"response_type" : @"token",
         @"redirect_uri" : self.redirectURI,
@@ -53,6 +54,8 @@ static NSString *const kMailRuApiMethodGetInfo = @"users.getInfo";
 
 - (BOOL)isAllowedToProcessUrlString:(NSString *)urlString {
     if ([urlString rangeOfString:kMailRuAllowedURLPrefix].location != NSNotFound ||
+            [urlString rangeOfString:@"auth.mail.ru/sdc"].location != NSNotFound ||
+            [urlString rangeOfString:@"connect.mail.ru/sdc"].location != NSNotFound ||
             [urlString hasPrefix:@"https://auth.mail.ru/cgi-bin/auth"]) {
         return YES;
     }
@@ -72,7 +75,7 @@ static NSString *const kMailRuApiMethodGetInfo = @"users.getInfo";
 
 - (void)loadUserInfo:(MRSocialAccountInfo *)account {
     NSMutableDictionary *parameters = [@{
-        @"app_id" : kMailRuAppId,
+        @"app_id" : self.settings[kMailRuAppIdKey],
         @"method" : kMailRuApiMethodGetInfo,
         @"session_key" : account.accessToken
     } mutableCopy];
@@ -120,10 +123,36 @@ static NSString *const kMailRuApiMethodGetInfo = @"users.getInfo";
 - (void)signRequest:(NSMutableDictionary *)dictionary account:(MRSocialAccountInfo *)account {
     NSMutableString *builder = [NSMutableString stringWithString:account.identifier];
     [builder appendString:[MRSocialHelper sortedParameters:dictionary excludes:nil]];
-    [builder appendString:kMailRuPublicKey];
+    [builder appendString:self.settings[kMailRuPublicKey]];
     MRLog(@"Signature source is: %@", builder);
 
     dictionary[@"sig"] = [MRSocialHelper md5:builder];
     MRLog(@"Dictionary is: %@", dictionary);
 }
+
+- (void)publish:(MRPostInfo *)postInfo account:(MRSocialAccountInfo *)accountInfo completionBlock:(void (^)(BOOL isSuccess))completionBlock {
+    NSMutableDictionary *parameters = [@{
+        @"app_id" : self.settings[kMailRuAppIdKey],
+        @"method" : kMailRuApiMethodStreamPost,
+        @"text" : postInfo.message ?: @"",
+        @"img_url" : postInfo.pictureUrl ?: @"",
+        @"session_key" : accountInfo.accessToken
+    } mutableCopy];
+    [self signRequest:parameters account:accountInfo];
+
+    __weak typeof(self) myself = self;
+    self.operation = [self.httpClient GET:@"" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [myself resetNetworkOperation];
+        if (completionBlock) {
+            completionBlock(operation.response.statusCode == 200);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        MRLog(@"Error: %@", [error localizedDescription]);
+        [myself resetNetworkOperation];
+        if (completionBlock) {
+            completionBlock(NO);
+        }
+    }];
+}
+
 @end

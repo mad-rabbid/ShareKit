@@ -13,5 +13,13 @@
         "appSecret" : "10ABEFAF7B8E902E26997E5E",
         "appPublic" : "CBAQGLFNABABABABA",
         "redirectUrl" : "http://torg12.imgsmail.ru/model"
+    },
+    "vkontakte" : {
+        "appId" : "3785987"
+    },
+    "mailru" : {
+        "appId" : "708114",
+        "appSecret" : "a8a9203bfd3a9bc461034f675e0ff815",
+        "appPublic" : "277f80def05245252f75d7eebda75fb3"
     }
 }

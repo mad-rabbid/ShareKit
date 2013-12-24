@@ -23,6 +23,7 @@
     self = [super init];
     if (self) {
         self.httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[[NSURL alloc] initWithString:self.baseApiURL]];
+        self.httpClient.securityPolicy.allowInvalidCertificates = YES;
     }
     return self;
 }

@@ -4,8 +4,6 @@
 #import "MRPostInfo.h"
 #import "MRSocialLogging.h"
 #import "MRSocialAccountInfo.h"
-#import "MRSocialAccountManager.h"
-#import "MRSocialProvidersFactory.h"
 
 static NSString *const kVKApiHTTPMethodPost = @"POST";
 static NSString *const kVKApiMethodWallPost = @"wall.post";
@@ -16,7 +14,7 @@ static NSString *const kVKApiMethodPhotosSaveWallPhoto = @"photos.saveWallPhoto"
 @property (nonatomic, strong) AFHTTPRequestOperation *operation;
 @property (nonatomic, strong) AFHTTPRequestOperationManager *httpClient;
 @property (nonatomic, strong) MRPostInfo *postInfo;
-@property (nonatomic, strong) MRSocialAccountInfo *account;
+
 @end
 
 @implementation MRSocialVKWallPostCommand {
@@ -28,7 +26,6 @@ static NSString *const kVKApiMethodPhotosSaveWallPhoto = @"photos.saveWallPhoto"
     if (self) {
         _httpClient = httpClient;
         _postInfo = postInfo;
-        _account = [[MRSocialAccountManager sharedInstance] accountWithType:kMRSocialProviderTypeVKontakte];
     }
     return self;
 }
@@ -72,23 +69,27 @@ static NSString *const kVKApiMethodPhotosSaveWallPhoto = @"photos.saveWallPhoto"
     }
 }
 
+- (NSDictionary *)validOperationResponse:(AFHTTPRequestOperation *)operation responseObject:(id)responseObject {
+    return (operation.response.statusCode == 200 && [responseObject isKindOfClass:NSDictionary.class] && responseObject[@"response"]) ? responseObject[@"response"] : nil;
+}
+
 - (void)obtainPhotoUploadUrl {
     [self cancelOperation];
 
     NSMutableDictionary *parameters = [@{
-        @"user_id" : self.account.identifier,
         @"access_token" : self.account.accessToken
     } mutableCopy];
 
     __weak typeof(self) myself = self;
     self.operation = [self.httpClient GET:kVKApiMethodPhotosGetWallUploadServer parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [myself resetNetworkOperation];
-        if (operation.response.statusCode == 200) {
-            NSString *uploadUrl = responseObject[@"upload_url"];
+        NSDictionary *response = [myself validOperationResponse:operation responseObject:responseObject];
+        if (response) {
+            NSString *uploadUrl = response[@"upload_url"];
             if ([uploadUrl isKindOfClass:NSString.class]) {
                 [myself uploadPhotoWithUrl:uploadUrl];
+                return;
             }
-            return;
         }
         [myself fail];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -110,8 +111,9 @@ static NSString *const kVKApiMethodPhotosSaveWallPhoto = @"photos.saveWallPhoto"
     self.operation = [self.httpClient HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [myself resetNetworkOperation];
         MRLog(@"Response: %@", [operation responseString]);
-        if (operation.response.statusCode == 200 && [responseObject isKindOfClass:NSDictionary.class]) {
-            [myself savePhotoWithDescriptor:responseObject];
+        NSDictionary *response = (operation.response.statusCode == 200 && [responseObject isKindOfClass:NSDictionary.class]) ? responseObject : nil;
+        if (response) {
+            [myself savePhotoWithDescriptor:response];
             return;
         }
         [myself fail];
@@ -122,16 +124,21 @@ static NSString *const kVKApiMethodPhotosSaveWallPhoto = @"photos.saveWallPhoto"
 }
 
 - (void)savePhotoWithDescriptor:(NSDictionary *)descriptor {
-    NSMutableDictionary *parameters = [descriptor mutableCopy];
-    parameters[@"user_id"] = self.account.identifier;
-    parameters[@"access_token"] = self.account.accessToken;
+    NSDictionary *parameters = @{
+        @"server" : descriptor[@"server"],
+        @"photo" : descriptor[@"photo"],
+        @"hash" : descriptor[@"hash"],
+        @"access_token" : self.account.accessToken
+    };
 
     __weak typeof(self) myself = self;
     self.operation = [self.httpClient POST:kVKApiMethodPhotosSaveWallPhoto parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [myself resetNetworkOperation];
-        if (operation.response.statusCode == 200) {
-            NSString *identifier = responseObject[@"id"];
-
+        MRLog(@"Response: %@", [operation responseString]);
+        id response = [myself validOperationResponse:operation responseObject:responseObject];
+        if ([response isKindOfClass:NSArray.class] && [(NSArray *)response count]) {
+            NSString *identifier = ((NSArray *)response).lastObject[@"id"];
+            [myself postMessageWithPhotoIdentifier:identifier];
             return;
         }
         [myself fail];
@@ -141,7 +148,25 @@ static NSString *const kVKApiMethodPhotosSaveWallPhoto = @"photos.saveWallPhoto"
 }
 
 - (void)postMessageWithPhotoIdentifier:(NSString *)identifier {
+    NSDictionary *parameters = @{
+        @"owner_id" : self.account.identifier,
+        @"access_token" : self.account.accessToken,
+        @"message" : self.postInfo.message ?: @"",
+        @"attachments" : identifier ?: @""
+    };
 
+    __weak typeof(self) myself = self;
+    self.operation = [self.httpClient POST:kVKApiMethodWallPost parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [myself resetNetworkOperation];
+        NSDictionary *response = [myself validOperationResponse:operation responseObject:responseObject];
+        if (response && [response[@"post_id"] isKindOfClass:NSNumber.class]) {
+            [myself success];
+            return;
+        }
+        [myself fail];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [myself failWithError:error];
+    }];
 }
 
 @end

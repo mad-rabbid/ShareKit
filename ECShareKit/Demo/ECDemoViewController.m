@@ -68,8 +68,8 @@
                                                                                      [ECTwitterSharingActivity new],
                                                                                      [ECVKSharingActivity new],
                                                                                      [ECOdnoklassnikiSharingActivity new],
-                                                                                     [ECMailRuSharingActivity new],
-                                                                                     [ECYandexSharingActivity new]
+//                                                                                     [ECMailRuSharingActivity new],
+//                                                                                     [ECYandexSharingActivity new]
                                                                              ]];
     controller.delegate = self;
     controller.title = NSLocalizedString(@"Поделиться товарным предложением", nil);
