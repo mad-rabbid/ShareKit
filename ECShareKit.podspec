@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
   s.description = 'Framework to embedding a sharing option into iOS applications.'
   s.platform = :ios
-  s.resource   = 'ECShareKit/ECShareKit/Resources/ECShareKit.bundle'
+  s.resource   = 'ECShareKit/Resources/ECShareKit.bundle'
   s.frameworks = 'Accounts', 'CoreGraphics', 'SystemConfiguration', 'Social', 'Twitter'
 
   s.dependency 'AFNetworking', '~> 2.0.1'
