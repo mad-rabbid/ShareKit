@@ -1,12 +1,13 @@
 Pod::Spec.new do |s|
   s.name     = 'ECShareKit'
   s.version  = '0.5.2'
-  s.platform = :ios, '6.0'
+  s.license  = 'MIT'
+  s.ios.deployment_target = '6.0'
   s.summary  = 'ECShareKit for iOS.'
   s.homepage = 'https://github.com/mad-rabbid/ShareKit'
   s.authors  = { 'Sergey Samoylov' => 'mad.rabbid.78@gmail.com' }
   s.requires_arc = true
-  
+
   s.source   = { :git  => 'https://github.com/mad-rabbid/ShareKit.git', :tag => s.version.to_s }
   s.source_files = 'ECShareKit/ShareKit/**/*.{h,m}'
 
