@@ -3,6 +3,7 @@ Pod::Spec.new do |s|
   s.version  = '0.5.5'
   s.license  = 'MIT'
   s.ios.deployment_target = '6.0'
+  
   s.summary  = 'ECShareKit for iOS.'
   s.homepage = 'https://github.com/mad-rabbid/ShareKit'
   s.authors  = { 'Sergey Samoylov' => 'mad.rabbid.78@gmail.com' }
@@ -12,7 +13,6 @@ Pod::Spec.new do |s|
   s.source_files = 'ECShareKit/ShareKit/**/*.{h,m}'
 
   s.description = 'Framework to embedding a sharing option into iOS applications.'
-  s.platform = :ios
   s.resource   = 'ECShareKit/Resources/ECShareKit.bundle'
   s.frameworks = 'Accounts', 'CoreGraphics', 'SystemConfiguration', 'Social', 'Twitter'
 
