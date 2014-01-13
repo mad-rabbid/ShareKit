@@ -6,6 +6,8 @@
 #import "MRSocialLogging.h"
 #import "MRSocialProvidersFactory.h"
 #import "MRPostInfo.h"
+#import "MRSocialOKSignaturesHelper.h"
+#import "MRSocialOKMeidatopicPostCommand.h"
 
 static NSString *const kOKAppIdKey = @"appId";
 
@@ -22,6 +24,11 @@ static NSString *const kOKBaseApiURL = @"http://api.odnoklassniki.ru";
 static NSString *const kOKApiPathToken = @"oauth/token.do";
 static NSString *const kOKApiGetCurrentUser = @"api/users/getCurrentUser";
 static NSString *const kOKApiGetStreamPublish = @"api/stream/publish";
+
+@interface MRSocialProviderOK ()
+@property (nonatomic, strong) MRSocialOKMeidatopicPostCommand *mediatopicPostCommand;
+@end
+
 @implementation MRSocialProviderOK {
 
 }
@@ -86,14 +93,7 @@ static NSString *const kOKApiGetStreamPublish = @"api/stream/publish";
 }
 
 - (void)signRequest:(NSMutableDictionary *)dictionary account:(MRSocialAccountInfo *)account {
-    NSMutableString *builder = [[MRSocialHelper sortedParameters:dictionary excludes:@[@"access_token"]] mutableCopy];
-
-    NSString *secretSource = [account.accessToken stringByAppendingString:self.settings[kOKPrivateKey]];
-    NSString *secret = [MRSocialHelper md5:secretSource];
-    [builder appendString:secret];
-
-    dictionary[@"sig"] = [MRSocialHelper md5:builder];
-    MRLog(@"Dictionary is: %@", dictionary);
+    [MRSocialOKSignaturesHelper signRequest:dictionary account:account key:self.settings[kOKPrivateKey]];
 }
 
 - (void)loadUserInfo:(MRSocialAccountInfo *)account {
@@ -141,49 +141,20 @@ static NSString *const kOKApiGetStreamPublish = @"api/stream/publish";
 }
 
 - (void)publish:(MRPostInfo *)postInfo account:(MRSocialAccountInfo *)accountInfo completionBlock:(void (^)(BOOL isSuccess))completionBlock {
-    NSRange range = [postInfo.pictureUrl rangeOfString:self.settings[kOKRedirectURIKey]];
-    NSString *path = !range.location ? [postInfo.pictureUrl substringFromIndex:NSMaxRange(range) + 1] : postInfo.pictureUrl;
-    NSDictionary *attachment = @{
-        @"caption" : postInfo.message,
-        @"media" : @[
-            @{
-                @"src" : path,
-                @"type" : @"image"
-            }
-        ]
+    __weak typeof(self) myself = self;
+    MRSocialOKMeidatopicPostCommand *command = [[MRSocialOKMeidatopicPostCommand alloc] initWithHttpClient:self.httpClient postInfo:postInfo];
+    command.account = accountInfo;
+    command.key = self.settings[kOKPrivateKey];
+    command.completionBlock = ^(BOOL isSuccess) {
+        if (completionBlock) {
+            completionBlock(isSuccess);
+
+            myself.mediatopicPostCommand = nil;
+        }
     };
 
-    NSMutableDictionary *parameters = [@{
-            @"application_key" : self.settings[kOKPublicKey],
-            @"access_token" : accountInfo.accessToken,
-            @"format" : @"JSON",
-            @"message" : postInfo.message,
-            @"attachment" : [attachment JSONString]
-    } mutableCopy];
-
-//    NSMutableDictionary *parameters = [@{
-//            @"application_key" : self.settings[kOKPublicKey],
-//            @"access_token" : accountInfo.accessToken,
-//            @"format" : @"JSON",
-//            @"status" : @"API Одноклассников - унылое говно"
-//    } mutableCopy];
-
-    [self signRequest:parameters account:accountInfo];
-
-    __weak typeof(self) myself = self;
-    self.operation = [self.httpClient POST: kOKApiGetStreamPublish /*@"api/users/setStatus"*/ parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [myself resetNetworkOperation];
-        NSLog(@"Response: %@, %@", operation.response, responseObject);
-        if (completionBlock) {
-            completionBlock(operation.response.statusCode == 200 && [responseObject isKindOfClass:NSDictionary.class] && !responseObject[@"error_code"]);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [myself resetNetworkOperation];
-        NSLog(@"Response: %@", operation.response);
-        if (completionBlock) {
-            completionBlock(operation.response.statusCode == 200 && [[operation.responseString lowercaseString] isEqualToString:@"true"]);
-        }
-    }];
+    self.mediatopicPostCommand = command;
+    [self.mediatopicPostCommand execute];
 }
 
 @end

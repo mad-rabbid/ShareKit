@@ -40,6 +40,8 @@
 		CA01F9B9C99E3ED0D8AF6B47 /* ECVKSharingActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FDF05C0E664BC1AB8FD7 /* ECVKSharingActivity.m */; };
 		CA01F9C22FB80231565F893E /* ECComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FBF711D80DB780E9530F /* ECComposeViewController.m */; };
 		CA01F9D67FB200D826C08CFE /* ECComposeBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FC24E101EC91C70A87DA /* ECComposeBackgroundView.m */; };
+		CA01FA1E1C9515953776B5B1 /* MRSocialOKSignaturesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FBE9532C3EFCCFAE3A02 /* MRSocialOKSignaturesHelper.m */; };
+		CA01FAF8BD6ED5729A1F10B6 /* MRSocialOKMeidatopicPostCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F450C1B0288AE3DB9AEA /* MRSocialOKMeidatopicPostCommand.m */; };
 		CA01FB2EA51C378C8DD6FB13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FCA6FA79D05A90BF4363 /* main.m */; };
 		CA01FB803149E3CF6DF2C860 /* MRSocialProviderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FECDB65FBB24F515E650 /* MRSocialProviderManager.m */; };
 		CA01FBA4EFE19001F818F097 /* MRSocialProviderOK.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FCD7A108381B422FCFD3 /* MRSocialProviderOK.m */; };
@@ -103,6 +105,7 @@
 		CA01F4024E3F6466F12026B6 /* ECMailRuSharingActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECMailRuSharingActivity.h; sourceTree = "<group>"; };
 		CA01F41BD7486BF136C0FD03 /* ECShareKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ECShareKit-Prefix.pch"; sourceTree = "<group>"; };
 		CA01F427B7F2ED0A4984F23E /* ECMailRuSharingActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECMailRuSharingActivity.m; sourceTree = "<group>"; };
+		CA01F450C1B0288AE3DB9AEA /* MRSocialOKMeidatopicPostCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialOKMeidatopicPostCommand.m; sourceTree = "<group>"; };
 		CA01F465E37B0D8F93ADB8B7 /* MRPostInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRPostInfo.h; sourceTree = "<group>"; };
 		CA01F46CAA680B42120A96D1 /* ECComposeBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECComposeBackgroundView.h; sourceTree = "<group>"; };
 		CA01F49DC588D6DC37E27D8D /* ECFacebookSharingActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECFacebookSharingActivity.h; sourceTree = "<group>"; };
@@ -136,11 +139,14 @@
 		CA01FA71BE094EA9FF6FE235 /* ECShareKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "ECShareKit-Info.plist"; sourceTree = "<group>"; };
 		CA01FA9B07E24F2AA9CD57CE /* ECActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECActivityView.h; sourceTree = "<group>"; };
 		CA01FABB5341150EC4C8F723 /* MRSocialProviderVK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProviderVK.h; sourceTree = "<group>"; };
+		CA01FB035A8FFFDC5505C392 /* MRSocialOKMeidatopicPostCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialOKMeidatopicPostCommand.h; sourceTree = "<group>"; };
 		CA01FB10C2486A0AD945AFD8 /* ECActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECActivity.h; sourceTree = "<group>"; };
+		CA01FB1A4D4FD08CA6625E6F /* MRSocialOKSignaturesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialOKSignaturesHelper.h; sourceTree = "<group>"; };
 		CA01FB2371F16FDD459BA340 /* MRSocialProviderVK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProviderVK.m; sourceTree = "<group>"; };
 		CA01FB4EF462CF99ACB53274 /* MRSocialProviderYandex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSocialProviderYandex.h; sourceTree = "<group>"; };
 		CA01FB538E2F57E43EA5DA47 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CA01FBD2C335517253179361 /* ECShareKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECShareKitTests.m; sourceTree = "<group>"; };
+		CA01FBE9532C3EFCCFAE3A02 /* MRSocialOKSignaturesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialOKSignaturesHelper.m; sourceTree = "<group>"; };
 		CA01FBF711D80DB780E9530F /* ECComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECComposeViewController.m; sourceTree = "<group>"; };
 		CA01FBFABA0FD92B0D8B044E /* MRSocialProviderYandex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProviderYandex.m; sourceTree = "<group>"; };
 		CA01FC1054473C86454F8A40 /* MRSocialProviderTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSocialProviderTwitter.m; sourceTree = "<group>"; };
@@ -458,6 +464,10 @@
 			children = (
 				CA01FD08B56E14BD7F73826D /* MRSocialProviderOK.h */,
 				CA01FCD7A108381B422FCFD3 /* MRSocialProviderOK.m */,
+				CA01F450C1B0288AE3DB9AEA /* MRSocialOKMeidatopicPostCommand.m */,
+				CA01FB035A8FFFDC5505C392 /* MRSocialOKMeidatopicPostCommand.h */,
+				CA01FBE9532C3EFCCFAE3A02 /* MRSocialOKSignaturesHelper.m */,
+				CA01FB1A4D4FD08CA6625E6F /* MRSocialOKSignaturesHelper.h */,
 			);
 			path = Odnoklassniki;
 			sourceTree = "<group>";
@@ -646,6 +656,8 @@
 				CA01FC4A9E3FCC2649B252B6 /* MRPostInfo.m in Sources */,
 				CA01FC4E363E8F9DDD8B7DD6 /* MRSocialVKWallPostCommand.m in Sources */,
 				CA01FFB657D20293A0C86F4B /* MRSocialProviderVK.m in Sources */,
+				CA01FAF8BD6ED5729A1F10B6 /* MRSocialOKMeidatopicPostCommand.m in Sources */,
+				CA01FA1E1C9515953776B5B1 /* MRSocialOKSignaturesHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
